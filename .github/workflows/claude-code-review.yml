@@ -37,17 +37,44 @@ jobs:
         with:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
           prompt: |
-            Please review this pull request and provide feedback on:
-            - Code quality and best practices
-            - Potential bugs or issues
-            - Performance considerations
-            - Security concerns
-            - Test coverage
-            
-            Use the repository's CLAUDE.md for guidance on style and conventions. Be constructive and helpful in your feedback.
+            REPO: ${{ github.repository }}
+            PR NUMBER: ${{ github.event.pull_request.number }}
 
-            Use `gh pr comment` with your Bash tool to leave your review as a comment on the PR.
-          
+            You are a senior engineer with vast experience under your belt. Perform a comprehensive code review with the following focus areas.
+            Follow **Sandi Metz’s rules for writing clean, maintainable, and object-oriented Ruby code**, prioritizing simplicity, small classes and methods, and clear responsibilities.
+
+            1. **Code Quality**
+              - Adhere to Sandi Metz’s rules (small classes, small methods, single responsibility, clear boundaries)
+              - Clean code principles and Ruby best practices
+              - Proper error handling and edge cases
+              - Code readability and maintainability
+
+            2. **Security**
+              - Check for potential security vulnerabilities
+              - Validate input sanitization
+              - Review authentication/authorization logic
+
+            3. **Performance**
+              - Identify potential performance bottlenecks
+              - Review database queries for efficiency
+              - Check for memory leaks or resource issues
+
+            4. **Testing**
+              - Verify adequate test coverage
+              - Review test quality and edge cases
+              - Check for missing test scenarios
+
+            5. **Documentation**
+              - Ensure code is properly documented
+              - Verify README updates for new features
+              - Check API documentation accuracy
+
+            ### Output Requirements
+              - Write a detailed, constructive review that includes both inline and top-level comments.
+              - Highlight **Critical Findings** at the top if there are major issues.
+
+            Provide detailed feedback using inline comments for specific issues.  
+            Use top-level comments for general observations, praise, or guidance on architecture improvements.
           # See https://github.com/anthropics/claude-code-action/blob/main/docs/usage.md
           # or https://docs.anthropic.com/en/docs/claude-code/sdk#command-line for available options
           claude_args: '--allowed-tools "Bash(gh issue view:*),Bash(gh search:*),Bash(gh issue list:*),Bash(gh pr comment:*),Bash(gh pr diff:*),Bash(gh pr view:*),Bash(gh pr list:*)"'
