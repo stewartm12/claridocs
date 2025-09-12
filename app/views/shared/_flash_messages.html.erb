@@ -1,0 +1,20 @@
+<%= content_tag :div, id: 'flash', class: 'fixed top-4 left-1/2 transform -translate-x-1/2 z-50 w-full max-w-md px-4' do %>
+  <% flash.each do |type, message| %>
+    <% next if message.blank? %>
+
+    <% css_class = flash_css_class(type) %>
+
+    <%= content_tag :div, data: { controller: 'flash-message', flash_message_target: 'container' }, class: "border-l-4 rounded shadow-md #{css_class[:container]} mb-2 transition-all duration-500 transform" do %>
+      <%= content_tag :div, class: 'flex items-center justify-between p-4' do %>
+        <%= content_tag :p, simple_format(message), class: 'text-sm font-medium' %>
+        <%= content_tag :button, data: { action: 'click->flash-message#dismiss' }, class: 'cursor-pointer' do %>
+          <%= icon  'x-mark', class: 'h-5 w-5' %>
+        <% end %>
+      <% end %>
+
+      <%= content_tag :div, id: "progressBar", class: " mx-auto h-1 overflow-hidden" do %>
+        <%= content_tag :div, '', class: "h-full #{css_class[:bar]}", data: { flash_message_target: 'bar' } %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>

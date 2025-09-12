@@ -14,3 +14,7 @@ export RUBY_DEBUG_OPEN="true"
 export RUBY_DEBUG_LAZY="true"
 
 exec foreman start -f Procfile.dev "$@"
+
+
+# foreman start -f Procfile.dev <&0 &
+# bin/rails server "$@"

@@ -14,11 +14,14 @@ require 'action_view/railtie'
 require 'action_cable/engine'
 # require "rails/test_unit/railtie"
 
+# Attach a debugging process to your running rails server.
+require 'debug/open_nonstop' if defined?(Rails::Server) && Rails.env.development?
+
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
-module AiPoweredManagementTool
+module WealthDocsAI
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 8.0

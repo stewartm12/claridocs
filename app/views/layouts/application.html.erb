@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= content_for(:title) || "Ai Powered Management Tool" %></title>
+    <title><%= content_for(:title) || "Wealth Docs AI" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
@@ -23,6 +23,7 @@
   </head>
 
   <body>
+    <%= render 'shared/flash_messages' %>
     <main class="container mx-auto mt-28 px-5 flex">
       <%= yield %>
     </main>
