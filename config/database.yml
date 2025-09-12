@@ -22,13 +22,13 @@ default: &default
 
 development:
   <<: *default
-  database: ai_powered_management_tool_development
+  database: wealth_docs_ai_development
 
   # The specified database role being used to connect to PostgreSQL.
   # To create additional roles in PostgreSQL see `$ createuser --help`.
   # When left blank, PostgreSQL will use the default role. This is
   # the same name as the operating system user running Rails.
-  #username: ai_powered_management_tool
+  #username: wealth_docs_ai
 
   # The password associated with the PostgreSQL role (username).
   #password:
@@ -56,7 +56,7 @@ development:
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: ai_powered_management_tool_test
+  database: wealth_docs_ai_test
 
 # As with config/credentials.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
@@ -81,18 +81,18 @@ test:
 production:
   primary: &primary_production
     <<: *default
-    database: ai_powered_management_tool_production
-    username: ai_powered_management_tool
-    password: <%= ENV["AI_POWERED_MANAGEMENT_TOOL_DATABASE_PASSWORD"] %>
+    database: wealth_docs_ai_production
+    username: wealth_docs_ai
+    password: <%= ENV["WEALTH_DOCS_AI_DATABASE_PASSWORD"] %>
   cache:
     <<: *primary_production
-    database: ai_powered_management_tool_production_cache
+    database: wealth_docs_ai_production_cache
     migrations_paths: db/cache_migrate
   queue:
     <<: *primary_production
-    database: ai_powered_management_tool_production_queue
+    database: wealth_docs_ai_production_queue
     migrations_paths: db/queue_migrate
   cable:
     <<: *primary_production
-    database: ai_powered_management_tool_production_cable
+    database: wealth_docs_ai_production_cable
     migrations_paths: db/cable_migrate
