@@ -6,3 +6,112 @@ inherit_gem: { rubocop-rails-omakase: rubocop.yml }
 # # Use `[a, [b, c]]` not `[ a, [ b, c ] ]`
 # Layout/SpaceInsideArrayLiteralBrackets:
 #   Enabled: false
+
+AllCops:
+  Exclude:
+    - 'db/schema.rb'
+    - 'db/migrate/*'
+    - 'bin/*'
+    - 'node_modules/**/*'
+    - 'tmp/**/*'
+
+# ---- Style Rules ----
+
+Style/StringLiterals:
+  EnforcedStyle: single_quotes
+  Enabled: true
+
+Style/Documentation:
+  Enabled: false  # Don't require top-level class/module docs in Rails apps
+
+Style/FrozenStringLiteralComment:
+  Enabled: false  # Modern Ruby defaults to frozen strings (3.0+)
+
+Style/ClassAndModuleChildren:
+  EnforcedStyle: compact  # `module Admin::UsersController`, not nested modules
+
+Style/SymbolArray:
+  Enabled: true
+
+Style/WordArray:
+  Enabled: true
+
+Style/GlobalStdStream:
+  Enabled: true  # Prefer $stdout/$stderr
+
+Lint/UnusedBlockArgument:
+  Enabled: true
+
+Style/AndOr:
+  EnforcedStyle: always # Prefer the use of `&&` and `||` over `and` and `or` for control flow
+
+Style/ClassCheck:
+  Enabled: true # Prefer `is_a?` and `kind_of?` over comparing classes with `==`.
+
+Layout/SpaceAroundOperators:
+  Enabled: true
+  AllowForAlignment: true
+  EnforcedStyleForExponentOperator: no_space
+
+# ---- Layout Rules ----
+
+Layout/LineLength:
+  Max: 100  # Reasonable width for Rails teams, can be 120 if preferred
+
+Layout/SpaceInsideArrayLiteralBrackets:
+  EnforcedStyle: no_space # Enforce no spaces immediately inside array literal brackets.
+
+Layout/MultilineMethodCallIndentation:
+  EnforcedStyle: indented # Enforce indented alignment for multiline method calls.
+
+Layout/EmptyLineAfterGuardClause:
+  Enabled: true # Require an empty line after a guard clause.
+
+Layout/EmptyLinesAroundClassBody:
+  Enabled: true # Require a single empty line around a class or module body.
+
+Layout/ExtraSpacing:
+  AllowForAlignment: true # Allow extra spacing for alignment.
+
+# ---- Metrics (loosen where needed for Rails) ----
+
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/**/*' # allow long RSpec blocks
+    - 'config/routes.rb' # allow long routes files
+
+Metrics/MethodLength:
+  Max: 15
+
+Metrics/ClassLength:
+  Max: 200
+
+Metrics/ModuleLength:
+  Max: 200
+
+# ---- Rails-specific cops ----
+
+Rails/SkipsModelValidations:
+  Enabled: true  # Warn on update_all/destroy_all/etc. without validations
+
+Rails/SaveBang:
+  Enabled: true  # Enforce save!/create!/update! when you expect persistence
+
+Rails/EnumHash:
+  Enabled: true  # Enforce enum definition style consistency
+
+Rails/HasAndBelongsToMany:
+  Enabled: false # HABTM is sometimes fine, disable if your team prefers has_many :through
+
+Rails/OutputSafety:
+  Enabled: true  # Warn about raw() and html_safe usage
+
+Rails/Delegate:
+  Enabled: true
+  EnforceForPrefixed: true  # Prefer delegate for simple pass-through methods
+
+Lint/RescueException:
+  Enabled: true # Prohibit rescuing the `Exception` class, which can hide critical errors.
+
+Rails/FindEach:
+  Enabled: true # Enforce the use of `find_each` or `find_in_batches` for large datasets to improve performance.
