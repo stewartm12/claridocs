@@ -40,8 +40,8 @@ jobs:
             REPO: ${{ github.repository }}
             PR NUMBER: ${{ github.event.pull_request.number }}
 
-            You are a senior engineer with vast experience under your belt. Perform a comprehensive code review with the following focus areas.
-            Follow **Sandi Metz’s rules for writing clean, maintainable, and object-oriented Ruby code**, prioritizing simplicity, small classes and methods, and clear responsibilities.
+            You are a senior engineer. Perform a comprehensive code review focusing on the following areas.
+            Follow Sandi Metz’s rules for writing clean, maintainable, and object-oriented Ruby code, prioritizing simplicity, small classes and methods, and clear responsibilities.
 
             1. **Code Quality**
               - Adhere to Sandi Metz’s rules (small classes, small methods, single responsibility, clear boundaries)
@@ -70,11 +70,35 @@ jobs:
               - Check API documentation accuracy
 
             ### Output Requirements
-              - Write a detailed, constructive review that includes both inline and top-level comments.
-              - Highlight **Critical Findings** at the top if there are major issues.
+            - Generate a GitHub comment that provides a high-level summary of the review results.
+            - Use a checklist format for each focus area.
+            - If a focus area is **satisfactory**, use a checked checkbox (e.g., `- [x]`).
+            - If a focus area has **critical findings or issues**, use an unchecked checkbox (e.g., `- [ ]`) and briefly describe the issue.
+            - Do not include detailed inline comments or lengthy prose.
 
-            Provide detailed feedback using inline comments for specific issues.  
-            Use top-level comments for general observations, praise, or guidance on architecture improvements.
+            **Example Output:**
+            
+            ### Code Review Summary for PR #${{ github.event.pull_request.number }}
+
+            **Code Quality**
+            - [x] Adheres to Sandi Metz’s rules and Ruby best practices.
+            - [ ] **Critical Finding:** Error handling is missing in the `process_payment` method.
+
+            **Security**
+            - [x] Input sanitization is valid.
+
+            **Performance**
+            - [ ] Database queries are inefficient.
+
+            **Testing**
+            - [x] Adequate test coverage and quality.
+            - [ ] **Missing Test Scenarios:** Edge cases for user authentication are not tested.
+
+            **Documentation**
+            - [x] Code is properly documented.
+
+            ---
+            *Note: For more details, please review the specific issues raised in the PR files.*
           # See https://github.com/anthropics/claude-code-action/blob/main/docs/usage.md
           # or https://docs.anthropic.com/en/docs/claude-code/sdk#command-line for available options
           claude_args: '--allowed-tools "Bash(gh issue view:*),Bash(gh search:*),Bash(gh issue list:*),Bash(gh pr comment:*),Bash(gh pr diff:*),Bash(gh pr view:*),Bash(gh pr list:*)"'
