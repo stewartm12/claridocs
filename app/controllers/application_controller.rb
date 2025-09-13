@@ -8,6 +8,6 @@ class ApplicationController < ActionController::Base
   def redirect_signed_in_user
     return unless authenticated?
 
-    redirect_back(fallback_location: stores_path)
+    redirect_back(fallback_location: root_path)
   end
 end

@@ -2,31 +2,10 @@ class User < ApplicationRecord
   has_secure_password
   has_many :sessions, dependent: :destroy
 
+  validates :name, :email, presence: true
+  validates :password, password_complexity: true, allow_nil: true, if: -> { !Rails.env.development? }
+  validates :email, uniqueness: { case_sensitive: false }, format: { with: URI::MailTo::EMAIL_REGEXP }
+
   normalizes :email, with: ->(e) { e.strip.downcase }
-
-  validate :password_complexity
-
-  private
-
-  def password_complexity
-    unless password.match?(/(?=.*[a-z])/)
-      errors.add :password, 'must include at least one lowercase letter'
-    end
-
-    unless password.match?(/(?=.*[A-Z])/)
-      errors.add :password, 'must include at least one uppercase letter'
-    end
-
-    unless password.match?(/(?=.*\d)/)
-      errors.add :password, 'must include at least one number'
-    end
-
-    unless password.match?(/(?=.*[^A-Za-z0-9])/)
-      errors.add :password, 'must include at least one special character'
-    end
-
-    unless password.length >= 11
-      errors.add :password, 'must be at least 11 characters long'
-    end
-  end
+  normalizes :name, with: ->(e) { e.titleize }
 end
