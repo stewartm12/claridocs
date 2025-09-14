@@ -14,7 +14,7 @@ require 'simplecov'
 
 SimpleCov.start 'rails' do
   # Exclude files in app/helpers
-  add_filter '/app/helpers/application_helper.rb'
+  add_filter '/app/helpers'
 end
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
