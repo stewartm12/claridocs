@@ -63,6 +63,10 @@ group :development do
   gem 'web-console'
 
   gem 'bullet'
+  gem 'rack-mini-profiler'  # Performance profiling
+  gem 'memory_profiler'     # Memory usage analysis
+  gem 'redcarpet'
+  gem 'rouge'
 end
 
 group :test do
@@ -71,6 +75,8 @@ group :test do
   gem 'shoulda-matchers'
   gem 'simplecov'
   gem 'webmock'
+  gem 'capybara'           # For system specs (if not using yet)
+  gem 'selenium-webdriver' # For JavaScript system specs
 end
 
 gem 'httparty'

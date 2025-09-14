@@ -1,1 +1,121 @@
 @import "tailwindcss";
+
+/* Markdown content styling using Tailwind classes */
+.prose {
+  @apply leading-7 text-gray-700 max-w-none;
+}
+
+.prose h1 {
+  @apply text-3xl font-bold mt-8 mb-4 text-gray-900 border-b-2 border-gray-200 pb-2;
+}
+
+.prose h2 {
+  @apply text-2xl font-bold mt-6 mb-3 text-gray-900;
+}
+
+.prose h3 {
+  @apply text-xl font-bold mt-5 mb-2 text-gray-900;
+}
+
+.prose h4 {
+  @apply text-lg font-semibold mt-4 mb-2 text-gray-900;
+}
+
+.prose p {
+  @apply mb-4;
+}
+
+.prose ul, .prose ol {
+  @apply mb-4 pl-6;
+}
+
+.prose ul {
+  @apply list-disc;
+}
+
+.prose ol {
+  @apply list-decimal;
+}
+
+.prose li {
+  @apply mb-2;
+}
+
+.prose strong {
+  @apply font-bold text-gray-900;
+}
+
+.prose em {
+  @apply italic;
+}
+
+/* Code styling */
+.prose .code-block {
+  @apply bg-slate-50 border border-slate-200 rounded-lg p-4 my-6 overflow-x-auto font-mono text-sm leading-6;
+}
+
+.prose .code-block code {
+  @apply bg-transparent p-0 border-0 text-slate-800;
+  font-size: inherit;
+}
+
+.prose .inline-code {
+  @apply bg-slate-100 text-pink-600 px-1.5 py-0.5 rounded font-mono text-sm border border-slate-200;
+}
+
+/* Language-specific syntax highlighting */
+.prose .language-ruby {
+  @apply text-red-600;
+}
+
+.prose .language-javascript {
+  @apply text-amber-600;
+}
+
+.prose .language-css {
+  @apply text-blue-600;
+}
+
+.prose .language-html {
+  @apply text-emerald-600;
+}
+
+.prose .language-bash {
+  @apply text-gray-700;
+}
+
+/* Tables */
+.prose table {
+  @apply w-full border-collapse my-6;
+}
+
+.prose th, .prose td {
+  @apply border border-gray-300 p-3 text-left;
+}
+
+.prose th {
+  @apply bg-gray-50 font-bold text-gray-700;
+}
+
+.prose tr:nth-child(even) {
+  @apply bg-gray-50;
+}
+
+/* Blockquotes */
+.prose blockquote {
+  @apply border-l-4 border-blue-500 my-6 pl-4 italic text-gray-600 bg-slate-50 p-4 rounded-r-lg;
+}
+
+/* Links */
+.prose a {
+  @apply text-blue-600 no-underline border-b border-transparent transition-colors;
+}
+
+.prose a:hover {
+  @apply border-blue-600;
+}
+
+/* Horizontal rules */
+.prose hr {
+  @apply border-0 border-t-2 border-gray-200 my-8;
+}
