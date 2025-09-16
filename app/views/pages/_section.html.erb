@@ -1,0 +1,9 @@
+<%= content_tag :div, class: 'bg-stone-100 rounded-xl p-8 border border-border hover:shadow-lg transition-shadow' do %>
+  <%= content_tag :div, class: 'w-12 h-12 bg-emerald-50 rounded-lg flex items-center justify-center mb-6' do %>
+    <%= heroicon icon, options: { class: 'size-6 text-primary' } %>
+  <% end %>
+
+  <%= content_tag :h3, title, class: 'text-xl font-semibold mb-4' %>
+  <%= content_tag :p, description,
+    class: 'text-muted-foreground leading-relaxed' %>
+<% end %>

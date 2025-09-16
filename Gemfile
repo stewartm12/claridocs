@@ -79,6 +79,7 @@ group :test do
   gem 'selenium-webdriver' # For JavaScript system specs
 end
 
+gem 'heroicon'
 gem 'httparty'
 gem 'pagy'
 gem 'rails_icons'

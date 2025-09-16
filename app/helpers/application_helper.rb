@@ -11,4 +11,8 @@ module ApplicationHelper
     else { container: 'bg-gray-100 border-gray-500 text-gray-700', bar: 'bg-gray-500' }
     end
   end
+
+  def show_header_footer?
+    controller_name == 'pages'
+  end
 end

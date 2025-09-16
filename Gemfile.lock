@@ -135,6 +135,8 @@ GEM
     globalid (1.2.1)
       activesupport (>= 6.1)
     hashdiff (1.2.1)
+    heroicon (1.0.0)
+      rails (>= 5.2)
     httparty (0.23.1)
       csv
       mini_mime (>= 1.0.0)
@@ -450,6 +452,7 @@ DEPENDENCIES
   debug
   factory_bot_rails
   faker
+  heroicon
   httparty
   importmap-rails
   jbuilder
