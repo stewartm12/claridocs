@@ -1,4 +1,4 @@
-class MarkdownRenderer
+class Quality::MarkdownRenderer
   # Custom renderer for better code block handling
   class CustomRenderer < Redcarpet::Render::HTML
     def block_code(code, language)

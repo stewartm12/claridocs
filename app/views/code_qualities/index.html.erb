@@ -22,7 +22,7 @@
                     <%= content_tag :div do %>
                       <%= content_tag :div, class: 'flex flex-col lg:flex-row lg:items-center' do %>
                         <%= content_tag :h3, 'Branch: ', class: 'font-semibold text-gray-900' %>
-                        <%= link_to "#{review.branch_name}", code_review_path(review.path.sub("#{Rails.root}/reviews/", '').sub('.md','')), class: "hover:text-blue-600" %>
+                        <%= link_to "#{review.branch_name}", code_quality_path(review.path.sub("#{Rails.root}/reviews/", '').sub('.md','')), class: "hover:text-blue-600" %>
                       <% end %>
 
                       <%= content_tag :p, "#{review.date.strftime("%B %d, %Y at %I:%M %p")}", class: 'text-sm text-gray-600' %>

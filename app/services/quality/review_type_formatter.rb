@@ -1,4 +1,4 @@
-class ReviewTypeFormatter
+class Quality::ReviewTypeFormatter
   TYPE_MAPPINGS = {
     /code_review/i => 'Code Review',
     /test_coverage/i => 'Test Coverage',

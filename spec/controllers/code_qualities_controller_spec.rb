@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe CodeReviewsController, type: :controller do
+RSpec.describe CodeQualitiesController, type: :controller do
   describe 'GET #index' do
     context 'when user is not authenticated' do
       include_examples 'redirects to login', :get, :index

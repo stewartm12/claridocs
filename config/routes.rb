@@ -2,10 +2,10 @@ Rails.application.routes.draw do
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   if Rails.env.development? || Rails.env.test?
-    resources :code_reviews, only: :index
+    resources :code_qualities, only: :index
 
     # Wildcard route for show to capture nested folders
-    get 'code_reviews/*filename', to: 'code_reviews#show', as: 'code_review'
+    get 'code_qualities/*filename', to: 'code_qualities#show', as: 'code_quality'
   end
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.

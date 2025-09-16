@@ -1,4 +1,4 @@
-class ReviewFileFinder
+class Quality::ReviewFileFinder
   ALLOWED_TYPES = %w[
     code_reviews
     performance_reviews

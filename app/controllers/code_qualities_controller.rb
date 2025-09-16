@@ -1,13 +1,13 @@
-class CodeReviewsController < ApplicationController
+class CodeQualitiesController < ApplicationController
   before_action :development_only
   before_action :find_review_file, only: [:show]
 
   def index
-    @reviews = ReviewFileFinder.new.grouped_reviews
+    @reviews = Quality::ReviewFileFinder.new.grouped_reviews
   end
 
   def show
-    @markdown_html = MarkdownRenderer.new(@review_file.path).render
+    @markdown_html = Quality::MarkdownRenderer.new(@review_file.path).render
     @filename = @review_file.filename
     @review_type = @review_file.display_type
   end
@@ -24,6 +24,6 @@ class CodeReviewsController < ApplicationController
   end
 
   def redirect_to_not_found
-    redirect_to code_reviews_path, alert: 'Review not found'
+    redirect_to code_qualities_path, alert: 'Review not found'
   end
 end
