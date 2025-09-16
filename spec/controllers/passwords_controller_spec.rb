@@ -5,11 +5,11 @@ RSpec.describe PasswordsController, type: :controller do
     context 'when user is authenticated' do
       include_context 'with authenticated user'
 
-      it 'redirects to the root page' do
+      it 'redirects to the dashboard page' do
         get :new
 
         expect(response).to have_http_status(:found)
-        expect(response).to redirect_to(root_path)
+        expect(response).to redirect_to(dashboard_path)
       end
     end
 
@@ -26,11 +26,11 @@ RSpec.describe PasswordsController, type: :controller do
     context 'when user is authenticated' do
       include_context 'with authenticated user'
 
-      it 'redirects to the root page' do
+      it 'redirects to the dashboard page' do
         post :create, params: {}
 
         expect(response).to have_http_status(:found)
-        expect(response).to redirect_to(root_path)
+        expect(response).to redirect_to(dashboard_path)
       end
     end
 
@@ -69,11 +69,11 @@ RSpec.describe PasswordsController, type: :controller do
     context 'when user is authenticated' do
       include_context 'with authenticated user'
 
-      it 'redirects to the root page' do
+      it 'redirects to the dashboard page' do
         post :create, params: {}
 
         expect(response).to have_http_status(:found)
-        expect(response).to redirect_to(root_path)
+        expect(response).to redirect_to(dashboard_path)
       end
     end
 
@@ -118,11 +118,11 @@ RSpec.describe PasswordsController, type: :controller do
     context 'when user is authenticated' do
       include_context 'with authenticated user'
 
-      it 'redirects to the root page' do
+      it 'redirects to the dashboard page' do
         post :create, params: {}
 
         expect(response).to have_http_status(:found)
-        expect(response).to redirect_to(root_path)
+        expect(response).to redirect_to(dashboard_path)
       end
     end
 

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= content_for(:title) || "Claridocs" %></title>
+    <title><%= content_for(:title) || "ClariDocs" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
@@ -24,8 +24,12 @@
 
   <body>
     <%= render 'shared/flash_messages' %>
+    <%= render 'shared/header' if show_header_footer? %>
+
     <main>
       <%= yield %>
     </main>
+
+    <%= render 'shared/footer' if show_header_footer? %>
   </body>
 </html>

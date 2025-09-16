@@ -1,0 +1,20 @@
+<%= content_tag :div, class: 'sticky top-0 z-50 w-full border-b border-border backdrop-blur-sm' do %>
+  <%= content_tag :div, class: 'container mx-auto px-4 sm:px-6 lg:px-8' do %>
+    <%= content_tag :div, class: 'flex h-16 items-center justify-between' do %>
+      <%= content_tag :div, class: 'flex items-center' do %>
+        <%= image_tag "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/attachments/gen-images/public/claridocs-logo-modern-clean-F2aiTC3w4Gj16Z3M5yb3pFDckjYReJ.jpg",
+          class: "size-8 mr-3" %>
+        <%= content_tag :span, 'ClariDocs', class: 'text-xl font-bold' %>
+      <% end %>
+
+      <%= content_tag :nav, class: 'hidden md:flex items-center space-x-8' do %>
+        <%# <%= link_to 'Home', root_path, class: 'text-muted-foreground hover:text-primary transition-colors' %>
+      <% end %>
+
+      <%= content_tag :div, class: 'flex items-center space-x-4' do %>
+        <%= link_to 'Sign In', new_session_path, class: 'hidden md:inline-flex text-muted-foreground hover:text-primary transition-colors' %>
+        <%= link_to 'Get Started', new_registration_path, class: 'bg-primary px-4 py-2 rounded-lg transition-colors font-medium hover:bg-emerald-500' %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>

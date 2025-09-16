@@ -5,11 +5,11 @@ RSpec.describe SessionsController, type: :controller do
     context 'when user is authenticated' do
       include_context 'with authenticated user'
 
-      it 'redirects to the root page' do
+      it 'redirects to the dashboard page' do
         post :create, params: {}
 
         expect(response).to have_http_status(:found)
-        expect(response).to redirect_to(root_path)
+        expect(response).to redirect_to(dashboard_path)
       end
     end
 
@@ -26,11 +26,11 @@ RSpec.describe SessionsController, type: :controller do
     context 'when user is authenticated' do
       include_context 'with authenticated user'
 
-      it 'redirects to the root page' do
+      it 'redirects to the dashboard page' do
         post :create, params: {}
 
         expect(response).to have_http_status(:found)
-        expect(response).to redirect_to(root_path)
+        expect(response).to redirect_to(dashboard_path)
       end
     end
 
@@ -46,9 +46,9 @@ RSpec.describe SessionsController, type: :controller do
       context 'with valid credentials' do
         before { post :create, params: params }
 
-        it 'redirects to the intended page or dashboard' do
+        it 'redirects to the dashboard' do
           expect(response).to have_http_status(:found)
-          expect(response).to redirect_to(root_path)
+          expect(response).to redirect_to(dashboard_path)
         end
 
         it 'creates a new session' do

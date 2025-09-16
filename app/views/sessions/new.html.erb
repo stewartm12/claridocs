@@ -1,23 +1,56 @@
-<div class="mx-auto md:w-2/3 w-full">
-  <h1 class="font-bold text-4xl">Sign in</h1>
+<%= content_tag :div, class: 'min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8' do %>
+  <%= content_tag :div, class: 'max-w-md w-full space-y-8' do %>
+    <%= content_tag :div, class: 'text-center' do %>
+      <%= link_to root_path, class: 'flex items-center justify-center mb-6' do %>
+        <%= image_tag "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/attachments/gen-images/public/claridocs-logo-modern-clean-F2aiTC3w4Gj16Z3M5yb3pFDckjYReJ.jpg",
+          class: "size-8 mr-3" %>
+        <%= content_tag :span, 'Claridocs', class: 'text-2xl font-bold' %>
+      <% end %>
+      <%= content_tag :h3, 'Welcome Back', class: 'text-3xl font-bold mb-2' %>
+      <%= content_tag :p, 'Sign in to your account to continue', class: 'text-muted-foreground' %>
+    <% end %>
 
-  <%= form_with url: session_url, class: "contents" do |form| %>
-    <div class="my-5">
-      <%= form.email_field :email, required: true, autofocus: true, autocomplete: "username", placeholder: "Enter your email address", value: params[:email], class: "block shadow-sm rounded-md border border-gray-400 focus:outline-blue-600 px-3 py-2 mt-2 w-full" %>
-    </div>
+    <%= content_tag :div, class: 'bg-card rounded-xl border border-border p-8 shadow-sm' do %>
+      <%= form_with url: session_url, class: 'space-y-6' do |f| %>
+        <%= content_tag :div do %>
+          <%= f.label :email, class: 'block text-sm font-medium mb-2' %>
+          <%= f.email_field :email,
+            required: true,
+            autofocus: true,
+            autocomplete: 'email',
+            placeholder: 'name@example.com',
+            class: 'w-full px-3 py-2 border border-border rounded-lg bg-input placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent' %>
+        <% end %>
 
-    <div class="my-5">
-      <%= form.password_field :password, required: true, autocomplete: "current-password", placeholder: "Enter your password", maxlength: 72, class: "block shadow-sm rounded-md border border-gray-400 focus:outline-blue-600 px-3 py-2 mt-2 w-full" %>
-    </div>
+        <%= content_tag :div do %>
+          <%= f.label :password, class: 'block text-sm font-medium mb-2' %>
+          <%= f.password_field :password,
+            required: true,
+            autocomplete: 'current-password',
+            placeholder: '••••••••',
+            maxlength: 72,
+            class: 'w-full px-3 py-2 border border-border rounded-lg bg-input placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent' %>
+        <% end %>
 
-    <div class="col-span-6 sm:flex sm:items-center sm:gap-4">
-      <div class="inline">
-        <%= form.submit "Sign in", class: "w-full sm:w-auto text-center rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white inline-block font-medium cursor-pointer" %>
-      </div>
+        <%= content_tag :div, class: 'flex items-center justify-between' do %>
+          <%= content_tag :div, class: 'flex items-center' do %>
+              <%= f.check_box :remember_me, class: 'h-4 w-4 text-primary focus:ring-ring border-border rounded' %>
+              <%= f.label :remember_me, 'Remember me', class: 'ml-2 block text-sm text-muted-foreground' %>
+          <% end %>
 
-      <div class="mt-4 text-sm text-gray-500 sm:mt-0">
-        <%= link_to "Forgot password?", new_password_path, class: "text-gray-700 underline hover:no-underline" %>
-      </div>
-    </div>
+          <%= content_tag :div, class: 'text-sm' do %>
+            <%= link_to 'Forgot your password?', new_password_path, class: 'text-primary hover:text-primary/80 transition-colors hover:underline' %>
+          <% end %>
+        <% end %>
+
+        <%= f.submit 'Sign In', class: 'w-full bg-primary text-primary-foreground py-2 px-4 rounded-lg hover:bg-emerald-500 transition-colors font-medium hover:cursor-pointer' %>
+      <% end %>
+    <% end %>
+
+    <%= content_tag :div, class: 'text-center' do %>
+      <%= content_tag :p, class: 'text-muted-foreground' do %>
+        Don't have an account? <%= link_to 'Sign Up', new_registration_path, class: 'text-primary hover:text-primary/80 transition-colors hover:underline' %>
+      <% end %>
+    <% end %>
   <% end %>
-</div>
+<% end %>
