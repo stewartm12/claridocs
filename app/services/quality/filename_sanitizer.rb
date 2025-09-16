@@ -1,4 +1,4 @@
-class FilenameSanitizer
+class Quality::FilenameSanitizer
   VALID_SEGMENT_PATTERN = /\A[\w\-\.]+\z/
   REQUIRED_SEGMENTS = 2
 
