@@ -8,7 +8,9 @@ class SessionsController < ApplicationController
 
   def create
     if user = User.authenticate_by(params.permit(:email, :password))
-      start_new_session_for user
+      remember_me = params[:remember_me] == '1'
+      start_new_session_for(user, remember_me: remember_me)
+
       redirect_to after_authentication_url
     else
       flash.now[:alert] = 'Email or password is incorrect.' unless user
