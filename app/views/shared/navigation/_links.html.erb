@@ -1,0 +1,48 @@
+<%= content_tag :div, class: top_nav_class do %>
+  <%= nav_link_to dashboard_path, class: 'nav-links' do %>
+    <%= heroicon 'home', options: { class: 'size-5' } %>
+    <%= content_tag :span, 'Dashboard' %>
+  <% end %>
+  
+  <%= nav_link_to '#', class: 'nav-links' do %>
+    <%= heroicon 'document-text', options: { class: 'size-5' } %>
+    <%= content_tag :span, 'All Documents' %>
+  <% end %>
+  
+  <%= nav_link_to '#', class: 'nav-links' do %>
+    <%= heroicon 'squares-2x2', options: { class: 'size-5' } %>
+    <%= content_tag :span, 'Galleries' %>
+  <% end %>
+  
+  <%= nav_link_to '#', class: 'nav-links' do %>
+    <%= heroicon 'inbox', options: { class: 'size-5' } %>
+    <%= content_tag :span, 'Appointments' %>
+  <% end %>
+  
+  <%= nav_link_to '#', class: 'nav-links' do %>
+    <%= heroicon 'user', options: { class: 'size-5' } %>
+    <%= content_tag :span, 'Customers' %>
+  <% end %>
+  
+  <%= nav_link_to '#', class: 'nav-links' do %>
+    <%= heroicon 'banknotes', options: { class: 'size-5' } %>
+    <%= content_tag :span, 'Pricing' %>
+  <% end %>
+  
+  <%= nav_link_to '#', class: 'nav-links' do %>
+    <%= heroicon 'arrow-down-on-square', options: { class: 'size-5' } %>
+    <%= content_tag :span, 'Downloads' %>
+  <% end %>
+<% end %>
+
+<%= content_tag :div, class: 'px-3 py-4 border-t border-gray-200 space-y-1' do %>
+  <%= nav_link_to '#', class: 'nav-links' do %>
+    <%= icon 'cog-8-tooth', class: 'size-5' %>
+    <%= content_tag :span, 'Settings' %>
+  <% end %>
+  
+  <%= link_to session_path, method: :delete, data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: 'flex items-center space-x-3 px-3 py-2.5 rounded-lg text-sm font-medium text-red-600 hover:text-red-700 hover:bg-red-50 transition-all duration-200' do %>
+    <%= icon 'arrow-left-start-on-rectangle', class: 'size-5' %>
+    <%= content_tag :span, 'Sign Out' %>
+  <% end %>
+<% end %>

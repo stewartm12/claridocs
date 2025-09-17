@@ -23,13 +23,12 @@
   </head>
 
   <body>
+    <%= render 'shared/authenticated_navbar' if show_authenticated_navbar? %>
+    <%= render 'shared/authenticated_sidebar' if show_authenticated_navbar? %>
     <%= render 'shared/flash_messages' %>
-    <%= render 'shared/header' if show_header_footer? %>
 
     <main>
       <%= yield %>
     </main>
-
-    <%= render 'shared/footer' if show_header_footer? %>
   </body>
 </html>
