@@ -12,7 +12,13 @@ module ApplicationHelper
     end
   end
 
-  def show_header_footer?
-    controller_name == 'pages'
+  def nav_link_to(name = nil, options = nil, html_options = nil, &block)
+    active_class = current_page?(name) ? 'bg-emerald-50 text-emerald-700 border-l-2 border-r-2 border-emerald-600' : 'text-gray-600 hover:text-emerald-600 hover:bg-gray-50'
+    options[:class] = "#{options[:class]} #{active_class}".strip
+    link_to(name, options, html_options, &block)
+  end
+
+  def show_authenticated_navbar?
+    authenticated? && !request.path.start_with?('/code_qualities')
   end
 end

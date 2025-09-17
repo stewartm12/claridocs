@@ -1,12 +1,210 @@
 @import "tailwindcss";
 
-/* Markdown content styling using Tailwind classes */
+/* =============================================================================
+   THEME CONFIGURATION
+   ============================================================================= */
+
+@theme {
+  /* Primary Colors */
+  --color-primary-50: #ecfdf5;
+  --color-primary-100: #d1fae5;
+  --color-primary-500: #10b981;
+  --color-primary-600: #059669;  /* Main primary color */
+  --color-primary-700: #047857;
+  --color-primary-900: #064e3b;
+  
+  /* Semantic Colors */
+  --color-success: #10b981;
+  --color-warning: #f59e0b;
+  --color-error: #ef4444;
+  --color-info: #3b82f6;
+  
+  /* Neutral Colors */
+  --color-muted: #6b7280;
+  --color-muted-foreground: #9ca3af;
+  --color-border: #d1d5db;
+  --color-input: #f9fafb;
+  --color-ring: #059669;
+  
+  /* Background Colors */
+  --color-background: #ffffff;
+  --color-background-secondary: #f9fafb;
+  --color-background-muted: #f3f4f6;
+  
+  /* Text Colors */
+  --color-foreground: #111827;
+  --color-foreground-muted: #6b7280;
+}
+
+/* =============================================================================
+   BASE LAYER - Foundation styles
+   ============================================================================= */
+
+@layer base {
+  /* Form Elements */
+  input[type='text'],
+  input[type='email'], 
+  input[type='password'],
+  input[type='search'],
+  input[type='url'],
+  input[type='tel'],
+  input[type='number'],
+  textarea,
+  select {
+    @apply w-full px-3 py-2 
+           border border-gray-300 rounded-lg
+           bg-white
+           text-gray-900 placeholder-muted-foreground
+           focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:border-transparent
+           disabled:bg-gray-50 disabled:text-gray-500 disabled:cursor-not-allowed
+           transition-colors duration-200;
+  }
+
+  /* Labels */
+  label {
+    @apply block text-sm font-medium text-gray-700 mb-2
+           peer-disabled:cursor-not-allowed peer-disabled:opacity-70;
+  }
+
+  /* Buttons base styling */
+  button {
+    @apply inline-flex items-center justify-center
+           font-medium transition-colors duration-200
+           focus:outline-none focus:ring-2 focus:ring-offset-2
+           disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  /* Links */
+  a {
+    @apply text-emerald-600 transition-colors duration-200;
+  }
+
+  /* a:hover {
+    @apply text-emerald-700;
+  } */
+}
+
+/* =============================================================================
+   COMPONENTS LAYER - Reusable UI components
+   ============================================================================= */
+
+@layer components {
+  .nav-links {
+    @apply flex items-center space-x-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-200;
+  }
+  /* Button Variants */
+  .btn-primary {
+    @apply px-4 py-2 rounded-lg font-medium transition-all duration-200
+           focus:outline-none focus:ring-2 focus:ring-offset-2
+           bg-emerald-600 text-white
+           hover:bg-emerald-700 active:bg-emerald-800
+           focus:ring-emerald-500;
+  }
+
+  .btn-secondary {
+    @apply px-4 py-2 rounded-lg font-medium transition-all duration-200
+           focus:outline-none focus:ring-2 focus:ring-offset-2
+           bg-white text-gray-700 border border-gray-300
+           hover:bg-gray-50 active:bg-gray-100
+           focus:ring-gray-500;
+  }
+
+  .btn-outline {
+    @apply px-4 py-2 rounded-lg font-medium transition-all duration-200
+           focus:outline-none focus:ring-2 focus:ring-offset-2
+           bg-transparent text-emerald-600 border border-emerald-600
+           hover:bg-emerald-600 hover:text-white
+           focus:ring-emerald-500;
+  }
+
+  .btn-ghost {
+    @apply px-4 py-2 rounded-lg font-medium transition-all duration-200
+           focus:outline-none focus:ring-2 focus:ring-offset-2
+           bg-transparent text-gray-700
+           hover:bg-gray-100 active:bg-gray-200
+           focus:ring-gray-500;
+  }
+
+  .btn-danger {
+    @apply px-4 py-2 rounded-lg font-medium transition-all duration-200
+           focus:outline-none focus:ring-2 focus:ring-offset-2
+           bg-red-600 text-white
+           hover:bg-red-700 active:bg-red-800
+           focus:ring-red-500;
+  }
+
+  /* Button Size Modifiers - use with main button classes */
+  .btn-sm {
+    @apply px-3 py-1.5 text-sm;
+  }
+
+  .btn-lg {
+    @apply px-6 py-3 text-lg;
+  }
+
+  /* Cards */
+  .card {
+    @apply bg-white rounded-lg border border-gray-200 shadow-sm;
+  }
+
+  .card-header {
+    @apply px-6 py-4 border-b border-gray-200;
+  }
+
+  .card-body {
+    @apply px-6 py-4;
+  }
+
+  .card-footer {
+    @apply px-6 py-4 border-t border-gray-200 bg-gray-50 rounded-b-lg;
+  }
+
+  /* Alerts */
+  .alert-success {
+    @apply p-4 rounded-lg border flex items-start space-x-3
+           bg-green-50 border-green-200 text-green-800;
+  }
+
+  .alert-warning {
+    @apply p-4 rounded-lg border flex items-start space-x-3
+           bg-yellow-50 border-yellow-200 text-yellow-800;
+  }
+
+  .alert-error {
+    @apply p-4 rounded-lg border flex items-start space-x-3
+           bg-red-50 border-red-200 text-red-800;
+  }
+
+  .alert-info {
+    @apply p-4 rounded-lg border flex items-start space-x-3
+           bg-blue-50 border-blue-200 text-blue-800;
+  }
+
+  /* Form Groups */
+  .form-group {
+    @apply mb-6;
+  }
+
+  .form-error {
+    @apply text-red-600 text-sm mt-1;
+  }
+
+  .form-help {
+    @apply text-gray-500 text-sm mt-1;
+  }
+}
+
+/* =============================================================================
+   PROSE STYLING - For markdown/rich text content
+   ============================================================================= */
+
 .prose {
-  @apply leading-7 text-gray-700 max-w-none;
+  @apply max-w-none leading-7 text-gray-700;
 }
 
 .prose h1 {
-  @apply text-3xl font-bold mt-8 mb-4 text-gray-900 border-b-2 border-gray-200 pb-2;
+  @apply text-3xl font-bold mt-8 mb-4 text-gray-900 
+         border-b-2 border-gray-200 pb-2;
 }
 
 .prose h2 {
@@ -49,40 +247,32 @@
   @apply italic;
 }
 
-/* Code styling */
+.prose a {
+  @apply text-emerald-600 no-underline border-b border-transparent 
+         hover:border-emerald-600 transition-colors;
+}
+
+/* Code Styling */
 .prose .code-block {
-  @apply bg-slate-50 border border-slate-200 rounded-lg p-4 my-6 overflow-x-auto font-mono text-sm leading-6;
+  @apply bg-gray-50 border border-gray-200 rounded-lg p-4 my-6 
+         overflow-x-auto font-mono text-sm leading-6;
 }
 
 .prose .code-block code {
-  @apply bg-transparent p-0 border-0 text-slate-800;
-  font-size: inherit;
+  @apply bg-transparent p-0 border-0 text-gray-800;
 }
 
 .prose .inline-code {
-  @apply bg-slate-100 text-pink-600 px-1.5 py-0.5 rounded font-mono text-sm border border-slate-200;
+  @apply bg-gray-100 text-pink-600 px-1.5 py-0.5 rounded 
+         font-mono text-sm border border-gray-200;
 }
 
-/* Language-specific syntax highlighting */
-.prose .language-ruby {
-  @apply text-red-600;
-}
-
-.prose .language-javascript {
-  @apply text-amber-600;
-}
-
-.prose .language-css {
-  @apply text-blue-600;
-}
-
-.prose .language-html {
-  @apply text-emerald-600;
-}
-
-.prose .language-bash {
-  @apply text-gray-700;
-}
+/* Language-specific highlighting */
+.prose .language-ruby { @apply text-red-600; }
+.prose .language-javascript { @apply text-yellow-600; }
+.prose .language-css { @apply text-blue-600; }
+.prose .language-html { @apply text-emerald-600; }
+.prose .language-bash { @apply text-gray-700; }
 
 /* Tables */
 .prose table {
@@ -103,16 +293,8 @@
 
 /* Blockquotes */
 .prose blockquote {
-  @apply border-l-4 border-blue-500 my-6 pl-4 italic text-gray-600 bg-slate-50 p-4 rounded-r-lg;
-}
-
-/* Links */
-.prose a {
-  @apply text-blue-600 no-underline border-b border-transparent transition-colors;
-}
-
-.prose a:hover {
-  @apply border-blue-600;
+  @apply border-l-4 border-emerald-500 my-6 pl-4 
+         italic text-gray-600 bg-gray-50 p-4 rounded-r-lg;
 }
 
 /* Horizontal rules */
@@ -120,28 +302,44 @@
   @apply border-0 border-t-2 border-gray-200 my-8;
 }
 
+/* =============================================================================
+   UTILITIES LAYER - Custom utility classes
+   ============================================================================= */
+
 @layer utilities {
-  .text-primary {
-    @apply text-emerald-600;
+  /* Text Colors */
+  .text-primary { @apply text-emerald-600; }
+  .text-muted { @apply text-gray-500; }
+  .text-muted-foreground { @apply text-gray-400; }
+
+  /* Background Colors */
+  .bg-primary { @apply bg-emerald-600; }
+  .bg-muted { @apply bg-gray-100; }
+
+  /* Border Colors */
+  .border-border { @apply border-gray-300; }
+
+  /* Focus States */
+  .focus-ring {
+    @apply focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:ring-offset-2;
   }
 
-  .hover\:text-primary:hover {
-    @apply text-emerald-600;
+  /* Hover States */
+  .hover\:text-primary:hover { @apply text-emerald-600; }
+  .hover\:bg-primary:hover { @apply bg-emerald-600; }
+
+  /* Layout Utilities */
+  .container-app {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
   }
 
-  .btn-primary {
-    @apply bg-emerald-600 text-white px-4 py-2 rounded-lg hover:bg-emerald-700 transition-colors font-medium;
+  /* Animation Utilities */
+  .transition-base {
+    @apply transition-all duration-200 ease-in-out;
   }
 
-  .bg-primary {
-    @apply bg-emerald-600 text-white;
-  }
-
-  .text-muted-foreground {
-    @apply text-gray-500;
-  }
-
-  .border-border {
-    @apply border-gray-300;
+  /* Shadow Utilities */
+  .shadow-card {
+    @apply shadow-sm hover:shadow-md transition-shadow duration-200;
   }
 }

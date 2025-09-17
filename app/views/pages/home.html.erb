@@ -1,3 +1,5 @@
+<%= render 'pages_header' %>
+
 <%= content_tag :section, class: 'relative py-20 lg:py-32 bg-gray-200' do %>
   <%= content_tag :div, class: 'container mx-auto px-4 sm:px-6 lg:px-8' do %>
     <%= content_tag :div, class: 'max-w-4xl mx-auto text-center' do %>
@@ -11,7 +13,7 @@
         so you can focus on making decisions, not sifting through pages.',
         class: 'text-xl text-muted-foreground text-pretty mb-8 max-w-2xl mx-auto leading-relaxed' %>
 
-      <%= link_to 'Get Started', new_registration_path, class: 'bg-primary px-8 py-3 rounded-lg transition-colors font-medium hover:bg-emerald-500' %>
+      <%= link_to 'Get Started', new_registration_path, class: 'btn-primary btn-lg' %>
     <% end %>
   <% end %>
 <% end %>
@@ -46,7 +48,9 @@
       <%= content_tag :h2, 'Ready to transform your workflow?', class: 'text-3xl lg:text-4xl font-bold mb-6 text-balance' %>
       <%= content_tag :p, 'Join thousands of people who are already using ClariDocs to streamline their document management.',
         class: 'text-xl text-muted-foreground mb-8 max-w-2xl mx-auto text-pretty' %>
-      <%= link_to 'Get Started', new_registration_path, class: 'bg-primary px-8 py-3 rounded-lg transition-colors font-medium hover:bg-emerald-500' %>
+      <%= link_to 'Get Started', new_registration_path, class: 'btn-primary btn-lg' %>
     <% end %>
   <% end %>
 <% end %>
+
+<%= render 'pages_footer' %>
