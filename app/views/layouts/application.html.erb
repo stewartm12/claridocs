@@ -22,13 +22,16 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
-    <%= render 'shared/authenticated_navbar' if show_authenticated_navbar? %>
-    <%= render 'shared/authenticated_sidebar' if show_authenticated_navbar? %>
-    <%= render 'shared/flash_messages' %>
+  <body class="h-screen flex flex-col">
+    <%= render 'shared/authenticated_navbar' if authenticated? %>
 
-    <main>
-      <%= yield %>
-    </main>
+    <div class="flex flex-1 overflow-hidden">
+      <%= render 'shared/authenticated_sidebar' if authenticated? %>
+      
+      <%= content_tag :main, class: "flex-1 overflow-y-auto bg-gray-50 #{authenticated? ? 'p-6' : ''}" do %>
+        <%= render 'shared/flash_messages' %>
+        <%= yield %>
+      <% end %>
+    </div>
   </body>
 </html>

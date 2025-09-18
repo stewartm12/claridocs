@@ -1,32 +1,30 @@
-<%= content_tag :div, class: 'p-4' do %>
-  <%= content_tag :div, class: 'px-6 py-4 border-b border-gray-200' do %>
-    <%= content_tag :h1, '📊 Code Review Dashboard', class: 'text-3xl font-bold text-gray-900' %>
-    <%= content_tag :p, 'View all code reviews and analysis reports', class: 'text-gray-600 mt-2' %>
-  <% end %>
+<%= content_tag :div, class: 'border-b border-gray-200' do %>
+  <%= content_tag :h1, '📊 Code Repository Quality', class: 'text-2xl font-bold text-gray-900' %>
+  <%= content_tag :p, 'View all code reviews and analysis reports', class: 'text-gray-600 mt-2' %>
+<% end %>
 
-  <% if @reviews.any? %>
-    <%= content_tag :div, class: 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6' do %>
-      <% @reviews.each do |type, reviews| %>
-        <%= content_tag :section, class: 'mb-8' do %>
-          <%= content_tag :h2, review_type_badge(type), class: 'text-2xl font-bold text-gray-800 m-2 flex justify-center' %>
+<% if @reviews.any? %>
+  <%= content_tag :div, class: 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6' do %>
+    <% @reviews.each do |type, reviews| %>
+      <%= content_tag :section, class: 'mb-8' do %>
+        <%= content_tag :h2, review_type_badge(type), class: 'text-xl font-bold text-gray-800 m-2 flex justify-center' %>
 
-          <%= content_tag :div, class: 'grid gap-4' do %>
-            <% reviews.each do |review| %>
-              <%= content_tag :div, class: 'border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow' do %>
-                <%= content_tag :div, class: 'flex items-center justify-between' do %>
-                  <%= content_tag :div, class: 'flex items-center space-x-4' do %>
-                    <%= content_tag :div, class: 'flex-shrink-0' do %>
-                      <%= review_icon(review.type) %>
+        <%= content_tag :div, class: 'grid gap-4' do %>
+          <% reviews.each do |review| %>
+            <%= content_tag :div, class: 'border border-gray-200 rounded-lg py-2 pl-2 hover:shadow-md transition-shadow' do %>
+              <%= content_tag :div, class: 'flex items-center justify-between' do %>
+                <%= content_tag :div, class: 'flex items-center space-x-4' do %>
+                  <%= content_tag :div, class: 'flex-shrink-0' do %>
+                    <%= review_icon(review.type) %>
+                  <% end %>
+
+                  <%= content_tag :div do %>
+                    <%= content_tag :div, class: 'flex flex-col gap-x-2 lg:flex-row lg:items-center' do %>
+                      <%= content_tag :h3, 'Branch: ', class: 'font-semibold text-gray-900 text-md' %>
+                      <%= link_to "#{review.branch_name}", code_quality_path(review.path.sub("#{Rails.root}/reviews/", '').sub('.md','')), class: "text-sm" %>
                     <% end %>
 
-                    <%= content_tag :div do %>
-                      <%= content_tag :div, class: 'flex flex-col lg:flex-row lg:items-center' do %>
-                        <%= content_tag :h3, 'Branch: ', class: 'font-semibold text-gray-900' %>
-                        <%= link_to "#{review.branch_name}", code_quality_path(review.path.sub("#{Rails.root}/reviews/", '').sub('.md','')), class: "hover:text-blue-600" %>
-                      <% end %>
-
-                      <%= content_tag :p, "#{review.date.strftime("%B %d, %Y at %I:%M %p")}", class: 'text-sm text-gray-600' %>
-                    <% end %>
+                    <%= content_tag :p, "#{review.date.strftime("%B %d, %Y at %I:%M %p")}", class: 'text-sm text-gray-600' %>
                   <% end %>
                 <% end %>
               <% end %>
@@ -35,11 +33,11 @@
         <% end %>
       <% end %>
     <% end %>
-  <% else %>
-    <%= content_tag :div, class: 'text-center py-12' do %>
-      <%= content_tag :span, '📄', class: 'text-gray-400 text-6xl mb-4' %>
-      <%= content_tag :h3, 'No Reviews Found', class: 'text-lg font-medium text-gray-900 mb-2' %>
-      <%= content_tag :p, 'Run your code review scripts to generate reports.', class: 'text-gray-600' %>
-    <% end %>
+  <% end %>
+<% else %>
+  <%= content_tag :div, class: 'text-center py-12' do %>
+    <%= content_tag :span, '📄', class: 'text-gray-400 text-6xl mb-4' %>
+    <%= content_tag :h3, 'No Reviews Found', class: 'text-lg font-medium text-gray-900 mb-2' %>
+    <%= content_tag :p, 'Run your code review scripts to generate reports.', class: 'text-gray-600' %>
   <% end %>
 <% end %>
