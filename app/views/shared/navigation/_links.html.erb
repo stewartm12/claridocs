@@ -10,28 +10,15 @@
   <% end %>
   
   <%= nav_link_to '#', class: 'nav-links' do %>
-    <%= heroicon 'squares-2x2', options: { class: 'size-5' } %>
-    <%= content_tag :span, 'Galleries' %>
+    <%= heroicon 'link', options: { class: 'size-5' } %>
+    <%= content_tag :span, 'Integrations' %>
   <% end %>
   
-  <%= nav_link_to '#', class: 'nav-links' do %>
-    <%= heroicon 'inbox', options: { class: 'size-5' } %>
-    <%= content_tag :span, 'Appointments' %>
-  <% end %>
-  
-  <%= nav_link_to '#', class: 'nav-links' do %>
-    <%= heroicon 'user', options: { class: 'size-5' } %>
-    <%= content_tag :span, 'Customers' %>
-  <% end %>
-  
-  <%= nav_link_to '#', class: 'nav-links' do %>
-    <%= heroicon 'banknotes', options: { class: 'size-5' } %>
-    <%= content_tag :span, 'Pricing' %>
-  <% end %>
-  
-  <%= nav_link_to '#', class: 'nav-links' do %>
-    <%= heroicon 'arrow-down-on-square', options: { class: 'size-5' } %>
-    <%= content_tag :span, 'Downloads' %>
+  <% if Rails.env.development? %>
+    <%= nav_link_to code_qualities_path, class: 'nav-links' do %>
+      <%= heroicon 'code-bracket', options: { class: 'size-5' } %>
+      <%= content_tag :span, 'Code Quality' %>
+    <% end %>
   <% end %>
 <% end %>
 
