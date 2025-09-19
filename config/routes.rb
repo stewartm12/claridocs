@@ -23,4 +23,7 @@ Rails.application.routes.draw do
   resource :registration, only: %i[new create]
   resources :passwords, param: :token, except: %i[index show destroy]
   resource :dashboard, only: :show
+  resources :collections do
+    resources :documents, except: :index
+  end
 end

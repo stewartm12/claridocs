@@ -1,0 +1,38 @@
+<%= tag.nav class: 'flex items-center space-x-2 text-sm mb-6' do %>
+  <%= link_to 'Dashboard', dashboard_path, class: 'text-gray-500 hover:text-emerald-700' %>
+  <%= heroicon 'chevron-right', options: { class: 'text-gray-500 size-3' } %>
+  <%= tag.span 'Collections', class: 'text-emerald-700 underline' %>
+<% end %>
+
+<%= tag.div do %>
+  <%= tag.div class: 'flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 gap-4 sm:gap-0' do %>
+    <%= tag.div class: 'flex-1' do %>
+      <%= tag.h3 'Collections', class: 'text-3xl font-bold text-foreground mb-2' %>
+      <%= tag.p 'Organize your documents into collections for better management', class: 'text-muted-foreground' %>
+    <% end %>
+
+    <%= tag.div class: 'flex flex-wrap sm:flex-nowrap items-stretch sm:items-center gap-2 sm:gap-3 mt-2 sm:mt-0' do %>
+      <%= link_to new_collection_path, class: 'btn-primary flex items-center justify-center gap-2 flex-1 sm:flex-none min-w-[160px]', data: { turbo_frame: 'modal' } do %>
+        <%= heroicon 'plus', options: { class: 'size-4' } %>
+        <%= tag.span 'Create Collection' %>
+      <% end %>
+    <% end %>
+  <% end %>
+
+  <%= turbo_frame_tag 'collection_metrics' do %>
+    <%= tag.div class: 'grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6' do %>
+      <%= render 'metric_data', title: 'Total Collections', count: @total_collections, icon: 'rectangle-stack' %>
+      <%= render 'metric_data', title: 'Total Documents', count: @total_documents, icon: 'document-text' %>
+      <%= render 'metric_data', title: 'Recent Activity', count: 12, icon: 'bolt' %>
+      <%= render 'metric_data', title: 'AI Insights', count: 12, icon: 'sun' %>
+    <% end %>
+  <% end %>
+<% end %>
+
+<%= tag.hr class: 'border-gray-300 my-6' %>
+
+<%= tag.div id: 'collection_results', class: 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6' do %>
+  <% @collections.each do |collection| %>
+    <%= render collection %>
+  <% end %>
+<% end %>

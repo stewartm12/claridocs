@@ -1,0 +1,79 @@
+<%= tag.nav class: 'flex items-center space-x-2 text-sm mb-6' do %>
+  <%= link_to 'Dashboard', dashboard_path, class: 'text-gray-500 hover:text-emerald-700' %>
+  <%= heroicon 'chevron-right', options: { class: 'text-gray-500 size-3' } %>
+  <%= link_to 'Collections', collections_path, class: 'text-gray-500 hover:text-emerald-700' %>
+  <%= heroicon 'chevron-right', options: { class: 'text-gray-500 size-3' } %>
+  <%= tag.span @collection.title, class: 'text-emerald-700 underline' %>
+<% end %>
+
+<%= tag.div :div do %>
+  <%= tag.div class: 'flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-4' do %>
+    <%= tag.div class: 'flex items-start md:items-center space-x-4' do %>
+      <%= tag.div class: 'text-emerald-700 bg-emerald-100 rounded-lg flex items-center justify-center' do %>
+        <%= heroicon 'rectangle-stack', options: { class: 'size-12 text-primary' } %>
+      <% end %>
+
+      <%= tag.div do %>
+        <%= tag.h1 @collection.title, class: 'text-3xl font-bold text-foreground' %>
+        <%= tag.p @collection.description, class: 'text-muted-foreground' %>
+      <% end %>
+    <% end %>
+
+    <%= tag.div class: 'flex flex-wrap sm:flex-nowrap items-stretch sm:items-center gap-2 sm:gap-3 mt-2 sm:mt-0' do %>
+      <%#= tag.button class: 'p-2 hover:text-primary transition-colors border border-border rounded-lg cursor-pointer' do %>
+        <%# heroicon 'ellipsis-vertical', options: { class: 'size-4' } %>
+      <%# end %>
+
+      <%= link_to new_collection_document_path(@collection), class: 'btn-primary flex items-center justify-center gap-2 flex-1 sm:flex-none min-w-[160px]', data: { turbo_frame: 'modal' } do %>
+        <%= heroicon 'cloud-arrow-up', options: { class: 'size-4' } %>
+        <%= tag.span 'Upload Document' %>
+      <% end %>
+    <% end %>
+  <% end %>
+
+  <%= tag.div class: 'flex flex-col md:flex-row md:items-center md:justify-between flex-wrap gap-4 mb-6' do %>
+    <%= form_with url: collection_path(@collection),
+      method: :get,
+      data: {
+        turbo_frame: 'document_results',
+        turbo_action: 'advance',
+        controller: 'submit',
+        action: 'input->submit#submit'
+      },
+      class: 'flex flex-col sm:flex-row sm:items-center sm:space-x-4 gap-3 w-full md:w-auto' do |f| %>
+      <%= tag.div class: 'relative w-full sm:w-80' do %>
+        <%= f.search_field :title,
+          value: params[:title],
+          autocomplete: 'title',
+          placeholder: 'Search documents...',
+          class: 'pl-10 pr-4 py-2 w-full bg-input border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-ring' %>
+        <%= heroicon 'magnifying-glass', options: { class: 'size-4 absolute left-3 top-3 text-muted-foreground' } %>
+      <% end %>
+
+      <%= f.select :type,
+        options_for_select(Document.options_for_select, params[:type]),
+        { include_blank: 'All Types' },
+        class: 'bg-white p-2 rounded-md font-medium text-sm border border-gray-400 hover:bg-gray-100 w-full sm:w-auto' %>
+
+      <%= f.select :sort,
+        options_for_select([['Sort By Title', 'title'], ['Sort By Updated At', 'updated_at'], ['Sort By Document Type', 'document_type'], ['Sort By Document Size', 'size_bytes']], params[:sort]),
+        { include_blank: 'Sort By Creation Date' },
+        class: 'bg-white p-2 rounded-md font-medium text-sm border border-gray-400 hover:bg-gray-100 w-full sm:w-auto' %>
+    <% end %>
+  <% end %>
+
+  <%= turbo_frame_tag 'metrics' do %>
+    <%= tag.div class: 'grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6' do %>
+      <%= render 'metric_data', title: 'Total Documents', count: @collection.documents_count, icon: 'document-text' %>
+      <%= render 'metric_data', title: 'Total Size', count: number_to_human_size(@collection.total_storage), icon: 'cloud-arrow-up' %>
+      <%= render 'metric_data', title: 'AI Summaries', count: 0, icon: 'sun' %>
+      <%= render 'metric_data', title: 'Last Updated', count: time_since_updated(@collection), icon: 'clock' %>
+    <% end %>
+  <% end %>
+<% end %>
+
+<%= tag.hr class: 'border-gray-300 my-6' %>
+
+<%= turbo_frame_tag 'document_results' do %>
+  <%= render 'document_results' %>
+<% end %>

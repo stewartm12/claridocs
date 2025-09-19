@@ -1,0 +1,7 @@
+<%= render_flash_stream %>
+
+<% if @document.saved_changes? %>
+  <%= turbo_stream.replace dom_id(@document) do %>
+    <%= render @document, icon: 'document-text'  %>
+  <% end %>
+<% end %>

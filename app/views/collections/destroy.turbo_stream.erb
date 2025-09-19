@@ -1,0 +1,12 @@
+<%= render_flash_stream %>
+
+<%= turbo_stream.remove dom_id(@collection) %>
+
+<%= turbo_stream.replace 'collection_metrics' do %>
+  <%= tag.div class: 'grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6' do %>
+    <%= render 'metric_data', title: 'Total Collections', count: @total_collections, icon: 'rectangle-stack' %>
+    <%= render 'metric_data', title: 'Total Documents', count: @total_documents, icon: 'document-text' %>
+    <%= render 'metric_data', title: 'Recent Activity', count: 12, icon: 'bolt' %>
+    <%= render 'metric_data', title: 'AI Insights', count: 12, icon: 'sun' %>
+  <% end %>
+<% end %>
