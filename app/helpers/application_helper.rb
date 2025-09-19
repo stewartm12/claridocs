@@ -21,4 +21,19 @@ module ApplicationHelper
   def show_authenticated_navbar?
     authenticated? && !request.path.start_with?('/code_qualities')
   end
+
+  def human_size(size_bytes)
+    if size_bytes >= 1.gigabyte
+      "#{document.size_in_gb} GB"
+    elsif size_bytes >= 1.megabyte
+      "#{document.size_in_mb} MB"
+    else
+      "#{size_bytes} B"
+    end
+  end
+
+  def time_since_updated(record)
+    distance = time_ago_in_words(record.updated_at)
+    "#{distance} ago"
+  end
 end

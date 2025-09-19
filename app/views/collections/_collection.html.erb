@@ -1,0 +1,49 @@
+<%= tag.div id: dom_id(collection), class: 'bg-gradient-to-br from-white to-slate-200 rounded-xl p-6 border border-border shadow-sm hover:shadow-md transition-all duration-200 cursor-pointer' do %>
+  <%= tag.div class: 'flex items-start justify-between mb-4' do %>
+    <%= tag.div class: 'flex items-center gap-4' do %>
+      <%= tag.div class: 'size-12 text-emerald-700 bg-emerald-100 rounded-lg flex items-center justify-center group-hover:bg-primary/20 transition-colors flex-shrink-0' do %>
+        <%= heroicon 'rectangle-stack', options: { class: 'size-8' } %>
+      <% end %>
+
+      <%= link_to collection_path(collection), class: 'text-lg font-semibold text-foreground hover:text-emerald-600' do %>
+        <%= collection.title %>
+      <% end %>
+    <% end %>
+
+    <%= tag.div class: 'relative', data: { controller: 'popover' } do %>
+      <%= tag.button class: 'font-bold p-1 hover:bg-gray-200 rounded cursor-pointer', data: { action: 'click->popover#toggle' } do %>
+        <%= heroicon 'ellipsis-vertical', options: { class: 'size-4' } %>
+      <% end %>
+      <%= tag.div class: 'absolute right-0 mt-2 w-40 bg-white border border-gray-200 rounded-lg shadow-lg hidden flex-col z-50 overflow-hidden transition-all duration-150 ease-out', data: { popover_target: 'menu' } do %>
+        <%= link_to edit_collection_path(collection), class: 'flex items-center px-4 py-2 text-sm text-blue-700 hover:bg-blue-100 hover:text-blue-900 transition-colors duration-150', data: { turbo_frame: 'modal' } do %>
+          <%= heroicon 'pencil', options: { class: 'size-4 mr-2 text-blue-500 group-hover:text-blue-700' } %>
+          Edit
+        <% end %>
+
+        <%= tag.div class: 'border-t border-gray-100' %>
+
+        <%= link_to collection_path(collection),
+            data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' },
+            class: 'flex items-center px-4 py-2 text-sm text-red-600 hover:bg-red-50 hover:text-red-700 transition-colors duration-150' do %>
+          <%= heroicon 'trash', options: { class: 'size-4 mr-2' } %>
+          Delete
+        <% end %>
+      <% end %>
+    <% end %>
+  <% end %>
+
+  <%= tag.p collection.description, class: 'text-sm text-muted-foreground mb-4' %>
+
+  <%= tag.div class: 'flex items-center justify-between' do %>
+    <%= tag.div class: 'flex items-center space-x-4 text-xs text-muted-foreground' do %>
+      <%= tag.span class: 'flex items-center space-x-1' do %>
+        <%= heroicon 'document-text', options: { class: 'size-3' } %>
+        <%= tag.span "#{collection.documents.count} Docs" %>
+      <% end %>
+      <%= tag.span class: 'flex items-center space-x-1' do %>
+        <%= heroicon 'clock', options: { class: 'size-3' } %>
+        <%= tag.span time_since_updated(collection) %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>

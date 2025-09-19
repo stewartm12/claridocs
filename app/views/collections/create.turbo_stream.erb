@@ -1,0 +1,7 @@
+<%= render_flash_stream %>
+
+<% if @collection.persisted? %>
+  <%= turbo_stream.append 'collection_results' do %>
+    <%= render @collection, icon: '' %>
+  <% end %>
+<% end %>
