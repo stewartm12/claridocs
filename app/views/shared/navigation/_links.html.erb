@@ -4,9 +4,9 @@
     <%= content_tag :span, 'Dashboard' %>
   <% end %>
   
-  <%= nav_link_to '#', class: 'nav-links' do %>
-    <%= heroicon 'document-text', options: { class: 'size-5' } %>
-    <%= content_tag :span, 'All Documents' %>
+  <%= nav_link_to collections_path, class: 'nav-links' do %>
+    <%= heroicon 'folder-open', options: { class: 'size-5' } %>
+    <%= content_tag :span, 'Collections' %>
   <% end %>
   
   <%= nav_link_to '#', class: 'nav-links' do %>

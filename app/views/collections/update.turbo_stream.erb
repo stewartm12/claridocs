@@ -1,0 +1,7 @@
+<%= render_flash_stream %>
+
+<% if @collection.saved_changes? %>
+  <%= turbo_stream.replace dom_id(@collection) do %>
+    <%= render @collection %>
+  <% end %>
+<% end %>
