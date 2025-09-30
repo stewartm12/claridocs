@@ -12,7 +12,7 @@ class Document < ApplicationRecord
 
   before_validation :set_file_metadata, on: :create
 
-  after_create_commit :process_document_async
+  after_create_commit :process_document_async, if: :ai_extract?
 
   MEDIA_TYPES = %w[image video audio].freeze
 
@@ -22,7 +22,7 @@ class Document < ApplicationRecord
     completed: 2,
     failed: 3,
     needs_reprocessing: 4,
-    not_applicable: 5
+    not_processable: 5
   }
 
   scope :processed, -> { where(processing_status: :completed) }
@@ -37,6 +37,10 @@ class Document < ApplicationRecord
       .nearest_neighbors(:embedding, embedding, distance: 'cosine')
       .limit(limit)
       .includes(:document)
+  end
+
+  def process_ai!
+    process_document_async
   end
 
   private

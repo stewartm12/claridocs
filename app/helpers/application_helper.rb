@@ -49,4 +49,10 @@ module ApplicationHelper
     distance = time_ago_in_words(record.created_at)
     "Uploaded #{distance} ago"
   end
+
+  def processed_time_text(document)
+    return 'Not processed' unless document.processed_at
+
+    "Generated #{time_ago_in_words(document.processed_at)} ago"
+  end
 end

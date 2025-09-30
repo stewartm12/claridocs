@@ -9,6 +9,8 @@ class DocumentsController < ApplicationController
 
   def create
     @document = collection.documents.new(create_params)
+    @document.ai_extract = params[:document][:ai_extract] == '1'
+    @document.processing_status = @document.ai_extract ? :pending : :not_processable
 
     if @document.save
       flash.now[:success] = 'Document uploaded successfully'
@@ -22,7 +24,11 @@ class DocumentsController < ApplicationController
   def update
     @source = params[:source] || 'document'
 
+    @document.ai_extract = params[:document][:ai_extract] == '1'
+    @document.processing_status = @document.ai_extract ? :pending : :not_processable
+
     if @document.update(update_params)
+      @document.process_ai! if @document.ai_extract?
       flash.now[:success] = 'Document updated successfully'
     else
       flash.now[:alert] = @document.errors.full_messages.to_sentence

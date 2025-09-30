@@ -9,5 +9,6 @@
     <%= turbo_stream.update dom_id(@document, :breadcrumb), @document.title %>
     <%= turbo_stream.update dom_id(@document, :title), @document.title %>
     <%= turbo_stream.update dom_id(@document, :description), @document.description %>
+    <%= turbo_stream.update dom_id(@document, :processing_status), @document.processing_status %>
   <% end %>
 <% end %>

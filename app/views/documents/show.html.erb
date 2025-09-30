@@ -25,7 +25,7 @@
           <% end %>
           <%= tag.div class: 'flex items-center space-x-2' do %>
             <%= heroicon 'clock', options: { class: 'size-3 sm:size-4 flex-shrink-0' } %>
-            <%= tag.span time_since_created(@collection) %>
+            <%= tag.span time_since_created(@document) %>
           <% end %>
           <%= tag.div class: 'flex items-center space-x-2' do %>
             <%= heroicon 'user', options: { class: 'size-3 sm:size-4 flex-shrink-0' } %>
@@ -52,7 +52,7 @@
   <% end %>
 
   <%= tag.div class: 'flex items-center flex-wrap gap-3' do %>
-    <%= tag.span @document.processing_status, class: 'px-2 sm:px-3 py-1 bg-green-100 text-primary text-xs font-medium rounded-full' %>
+    <%= tag.span @document.processing_status, id: dom_id(@document, :processing_status), class: 'px-2 sm:px-3 py-1 bg-green-100 text-primary text-xs font-medium rounded-full' %>
   <% end %>
 <% end %>
 
@@ -64,7 +64,7 @@
           <%= heroicon 'sun', options: { class: 'size-5' } %>
         <% end %>
         <%= tag.h2 'AI-Generated Summary', class: 'text-xl font-semibold text-foreground' %>
-        <%= tag.span "Generated #{time_ago_in_words(@document.processed_at)} ago", class: 'px-2 py-1 bg-green-100 text-primary text-xs font-medium rounded' %>
+        <%= tag.span processed_time_text(@document), class: 'px-2 py-1 bg-green-100 text-primary text-xs font-medium rounded' %>
       <% end %>
 
       <%= tag.div class: 'prose prose-gray max-w-none' do %>
@@ -134,7 +134,7 @@
           <% end %>
           <%= tag.div class: 'flex items-center justify-between text-sm' do %>
             <%= tag.span 'Processed At', class: 'text-muted-foreground' %>
-            <%= tag.span @document.processed_at.strftime("%m/%d/%Y"), class: 'text-foreground font-medium' %>
+            <%= tag.span @document&.processed_at&.strftime("%m/%d/%Y"), class: 'text-foreground font-medium' %>
           <% end %>
         <% end %>
       <% end %>

@@ -36,6 +36,14 @@
           <% end %>
         <% end %>
       <% end %>
+
+      <%= content_tag :div, class: 'flex items-center space-x-2' do %>
+        <%= content_tag :span, 'AI Extract?', class: 'text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70' %>
+        <%= f.label :ai_extract, class: 'relative inline-flex items-center cursor-pointer mb-0' do %>
+          <%= f.check_box :ai_extract, class: 'sr-only peer', disabled: @document.ai_extract? %>
+          <%= content_tag :div, nil, class: 'w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-emerald-500 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-emerald-600' %>
+        <% end %>
+      <% end %>
     <% end %>
 
     <%= content_tag :div, class: 'flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2' do %>
