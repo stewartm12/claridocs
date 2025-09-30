@@ -1,7 +1,13 @@
 <%= render_flash_stream %>
 
 <% if @document.saved_changes? %>
-  <%= turbo_stream.replace dom_id(@document) do %>
-    <%= render @document, icon: 'document-text'  %>
+  <% if @source == 'collection' %>
+    <%= turbo_stream.replace dom_id(@document) do %>
+      <%= render @document, icon: 'document-text'  %>
+    <% end %>
+  <% else %>
+    <%= turbo_stream.update dom_id(@document, :breadcrumb), @document.title %>
+    <%= turbo_stream.update dom_id(@document, :title), @document.title %>
+    <%= turbo_stream.update dom_id(@document, :description), @document.description %>
   <% end %>
 <% end %>

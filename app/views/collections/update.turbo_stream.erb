@@ -1,7 +1,13 @@
 <%= render_flash_stream %>
 
 <% if @collection.saved_changes? %>
-  <%= turbo_stream.replace dom_id(@collection) do %>
-    <%= render @collection %>
+  <% if @source == 'all_collections' %>
+    <%= turbo_stream.replace dom_id(@collection) do %>
+      <%= render @collection %>
+    <% end %>
+  <% else %>
+    <%= turbo_stream.update dom_id(@collection, :breadcrumb), @collection.title %>
+    <%= turbo_stream.update dom_id(@collection, :title), @collection.title %>
+    <%= turbo_stream.update dom_id(@collection, :description), @collection.description %>
   <% end %>
 <% end %>

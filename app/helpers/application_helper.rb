@@ -44,4 +44,9 @@ module ApplicationHelper
     distance = time_ago_in_words(record.updated_at)
     "#{distance} ago"
   end
+
+  def time_since_created(record)
+    distance = time_ago_in_words(record.created_at)
+    "Uploaded #{distance} ago"
+  end
 end

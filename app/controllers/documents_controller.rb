@@ -1,5 +1,5 @@
 class DocumentsController < ApplicationController
-  before_action :set_document, only: %i[edit update destroy]
+  before_action :set_document, only: %i[show edit update destroy]
 
   def show; end
 
@@ -20,6 +20,8 @@ class DocumentsController < ApplicationController
   def edit; end
 
   def update
+    @source = params[:source] || 'document'
+
     if @document.update(update_params)
       flash.now[:success] = 'Document updated successfully'
     else
@@ -29,7 +31,16 @@ class DocumentsController < ApplicationController
 
   def destroy
     @document.destroy!
-    flash.now[:success] = 'Document Deleted Successfully.'
+
+    respond_to do |format|
+      format.turbo_stream do
+        flash.now[:success] = 'Document Deleted Successfully.'
+      end
+
+      format.html do
+        redirect_to collection_path(@collection), notice: 'Document Deleted Successfully.'
+      end
+    end
   end
 
   private

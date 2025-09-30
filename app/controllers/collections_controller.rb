@@ -30,6 +30,8 @@ class CollectionsController < ApplicationController
   end
 
   def update
+    @source = params[:source] || 'single_collection'
+
     if @collection.update(collection_params)
      flash.now[:success] = 'Collection updated successfully'
     else
@@ -39,8 +41,17 @@ class CollectionsController < ApplicationController
 
   def destroy
     @collection.destroy!
-    set_metrics
-    flash.now[:success] = 'Successfully deleted collection'
+
+    respond_to do |format|
+      format.turbo_stream do
+        set_metrics
+        flash.now[:success] = 'Successfully Deleted Document'
+      end
+
+      format.html do
+        redirect_to collections_path, notice: 'Document Deleted Successfully.'
+      end
+    end
   end
 
   private
