@@ -10,9 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_09_19_002829) do
+ActiveRecord::Schema[8.0].define(version: 2025_09_24_013633) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
+  enable_extension "vector"
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -53,6 +54,22 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_19_002829) do
     t.index ["user_id"], name: "index_collections_on_user_id"
   end
 
+  create_table "document_chunks", force: :cascade do |t|
+    t.bigint "document_id", null: false
+    t.text "content", null: false
+    t.text "content_summary"
+    t.integer "chunk_index", null: false
+    t.integer "character_count", default: 0
+    t.vector "embedding", limit: 1536
+    t.jsonb "metadata", default: {}
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["document_id", "chunk_index"], name: "index_document_chunks_on_document_id_and_chunk_index", unique: true
+    t.index ["document_id"], name: "index_document_chunks_on_document_id"
+    t.index ["embedding"], name: "index_document_chunks_on_embedding", opclass: :vector_cosine_ops, using: :ivfflat
+    t.index ["metadata"], name: "index_document_chunks_on_metadata", using: :gin
+  end
+
   create_table "documents", force: :cascade do |t|
     t.string "title", null: false
     t.string "description"
@@ -61,9 +78,18 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_19_002829) do
     t.bigint "collection_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "processing_status", default: 0, null: false
+    t.string "content_hash"
+    t.datetime "processed_at"
+    t.integer "chunk_count", default: 0, null: false
+    t.text "ai_summary"
+    t.jsonb "extracted_metadata", default: {}
     t.index ["collection_id", "title"], name: "index_documents_on_collection_id_and_title", unique: true
     t.index ["collection_id"], name: "index_documents_on_collection_id"
+    t.index ["content_hash"], name: "index_documents_on_content_hash"
     t.index ["document_type"], name: "index_documents_on_document_type"
+    t.index ["extracted_metadata"], name: "index_documents_on_extracted_metadata", using: :gin
+    t.index ["processing_status"], name: "index_documents_on_processing_status"
   end
 
   create_table "sessions", force: :cascade do |t|
@@ -94,6 +120,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_19_002829) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "collections", "users"
+  add_foreign_key "document_chunks", "documents"
   add_foreign_key "documents", "collections"
   add_foreign_key "sessions", "users"
 end

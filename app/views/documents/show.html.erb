@@ -1,0 +1,143 @@
+<%= tag.nav class: 'flex items-center space-x-2 text-sm mb-6' do %>
+  <%= link_to 'Dashboard', dashboard_path, class: 'text-gray-500 hover:text-emerald-700' %>
+  <%= heroicon 'chevron-right', options: { class: 'text-gray-500 size-3' } %>
+  <%= link_to 'Collections', collections_path, class: 'text-gray-500 hover:text-emerald-700' %>
+  <%= heroicon 'chevron-right', options: { class: 'text-gray-500 size-3' } %>
+  <%= link_to @collection.title, collection_path(@collection), class: 'text-gray-500 hover:text-emerald-700' %>
+  <%= heroicon 'chevron-right', options: { class: 'text-gray-500 size-3' } %>
+  <%= tag.span @document.title, id: dom_id(@document, :breadcrumb), class: 'text-emerald-700 underline' %>
+<% end %>
+
+<%= tag.div class: 'bg-gradient-to-br from-white to-slate-200 rounded-xl border border-gray-200 shadow-sm p-4 sm:p-6 lg:p-8 mb-8' do %>
+  <%= tag.div class: 'flex flex-col lg:flex-row lg:items-start lg:justify-between gap-6 mb-6' do %>
+    <%= tag.div class: 'flex items-start space-x-3 sm:space-x-4' do %>
+      <%= tag.div class: 'size-12 sm:size-16 bg-green-100 text-primary rounded-xl flex items-center justify-center flex-shrink-0' do %>
+        <%= heroicon 'document-text', options: { class: 'size-6 sm:size-8' } %>
+      <% end %>
+
+      <%= tag.div class: 'min-w-0 flex-1' do %>
+        <%= tag.h1 @document.title, id: dom_id(@document, :title), class: 'text-xl sm:text-2xl lg:text-3xl font-bold text-foreground mb-1 sm:mb-2 break-words' %>
+        <%= tag.p @document.description, id: dom_id(@document, :description), class: 'text-sm sm:text-base text-muted-foreground mb-3 sm:mb-4 break-words' %>
+        <%= tag.div class: 'flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-6 text-xs sm:text-sm text-muted-foreground' do %>
+          <%= tag.div class: 'flex items-center space-x-2' do %>
+            <%= heroicon 'cloud-arrow-up', options: { class: 'size-3 sm:size-4 flex-shrink-0' } %>
+            <%= tag.span number_to_human_size(@document.size_bytes) %>
+          <% end %>
+          <%= tag.div class: 'flex items-center space-x-2' do %>
+            <%= heroicon 'clock', options: { class: 'size-3 sm:size-4 flex-shrink-0' } %>
+            <%= tag.span time_since_created(@collection) %>
+          <% end %>
+          <%= tag.div class: 'flex items-center space-x-2' do %>
+            <%= heroicon 'user', options: { class: 'size-3 sm:size-4 flex-shrink-0' } %>
+            <%= tag.span @document.user.name, class: 'truncate' %>
+          <% end %>
+        <% end %>
+      <% end %>
+    <% end %>
+
+    <%= tag.div class: 'flex items-center justify-end gap-2 sm:gap-3' do %>
+      <%= link_to rails_blob_path(@document.file, disposition: 'attachment'), class: 'btn-primary flex items-center px-3 py-2 sm:px-4 sm:py-2 text-sm sm:text-base' do %>
+        <%= heroicon 'document-arrow-down', options: { class: 'size-4' } %>
+        <%= tag.span 'Download', class: 'hidden sm:inline ml-1 sm:ml-2' %>
+      <% end %>
+      <%= link_to edit_collection_document_path(@collection, @document, source: 'document'), class: 'btn-secondary flex items-center px-3 py-2 sm:px-4 sm:py-2 text-sm sm:text-base', data: { turbo_frame: 'modal' } do %>
+        <%= heroicon 'pencil-square', options: { class: 'size-4 text-blue-500' } %>
+        <%= tag.span 'Edit', class: 'hidden sm:inline ml-1 sm:ml-2 text-blue-500' %>
+      <% end %>
+      <%= link_to collection_document_path(@collection, @document), class: 'flex items-center btn-secondary  px-3 py-2 sm:px-4 sm:py-2 text-sm sm:text-base', method: :delete, data: { confirm: 'Are you sure?' } do %>
+        <%= heroicon 'trash', options: { class: 'size-4 text-red-500' } %>
+        <%= tag.span 'Delete', class: 'hidden sm:inline ml-1 sm:ml-2 text-red-500' %>
+      <% end %>
+    <% end %>
+  <% end %>
+
+  <%= tag.div class: 'flex items-center flex-wrap gap-3' do %>
+    <%= tag.span @document.processing_status, class: 'px-2 sm:px-3 py-1 bg-green-100 text-primary text-xs font-medium rounded-full' %>
+  <% end %>
+<% end %>
+
+<%= tag.div class: 'grid lg:grid-cols-4 gap-8' do %>
+  <%= tag.div class: 'lg:col-span-2 space-y-8' do %>
+    <%= tag.div class: 'bg-gradient-to-br from-white to-slate-200 rounded-xl border border-gray-200 shadow-sm p-8' do %>
+      <%= tag.div class: 'flex items-center space-x-3 mb-6' do %>
+        <%= tag.div class: 'w-10 h-10 bg-green-100 text-primary rounded-lg flex items-center justify-center' do %>
+          <%= heroicon 'sun', options: { class: 'size-5' } %>
+        <% end %>
+        <%= tag.h2 'AI-Generated Summary', class: 'text-xl font-semibold text-foreground' %>
+        <%= tag.span "Generated #{time_ago_in_words(@document.processed_at)} ago", class: 'px-2 py-1 bg-green-100 text-primary text-xs font-medium rounded' %>
+      <% end %>
+
+      <%= tag.div class: 'prose prose-gray max-w-none' do %>
+        <%= tag.p @document.ai_summary %>
+      <% end %>
+    <% end %>
+
+    <%= tag.div class: 'bg-gradient-to-br from-white to-slate-200 rounded-xl border border-gray-200 shadow-sm' do %>
+      <%= tag.div class: 'p-6 border-b border-gray-200' do %>
+        <%= tag.div class: 'flex items-center space-x-3' do %>
+          <%= tag.div class: 'size-10 bg-blue-50 rounded-lg flex items-center justify-center' do %>
+            <%= heroicon 'code-bracket', options: { class: 'size-5 text-blue-600' } %>
+          <% end %>
+
+          <%= tag.h2 'Extracted JSON Data', class: 'text-xl font-semibold text-foreground' %>
+          <%= tag.span 'AI Generated', class: 'px-2 py-1 bg-blue-50 text-blue-600 text-xs font-medium rounded' %>
+        <% end %>
+      <% end %>
+
+      <%= tag.div data: { controller: 'accordion' }  do %>
+        <% @document.extracted_metadata.each_with_index do |(key, value), index| %>
+          <%= render 'metadata_item', key: key, value: value, index: index %>
+        <% end %>
+      <% end %>
+    <% end %>
+  <% end %>
+
+  <%= tag.div class: 'lg:col-span-2' do %>
+    <%= tag.div class: 'bg-gradient-to-br from-white to-slate-200 rounded-xl border border-gray-200 shadow-sm lg:sticky top-8' do %>
+      <%= tag.div class: 'p-6 border-b border-gray-200' do %>
+        <%= tag.div class: 'flex items-center space-x-3' do %>
+          <%= tag.div class: 'w-8 h-8 bg-gray-100 rounded-lg flex items-center justify-center' do %>
+            <%= heroicon 'eye', options: { class: 'size-4 text-gray-600' } %>
+          <% end %>
+
+          <%= tag.h3 'Document Preview', class: 'text-lg font-semibold text-foreground' %>
+        <% end %>
+      <% end %>
+      <%= tag.div class: 'p-6' do %>
+        <%= tag.div class: 'mb-4 w-full' do %>
+          <%= tag.iframe src: rails_blob_path(@document.file, disposition: "inline"), width: '100%', height: "100%", style: "height: 48rem;",
+            title: 'PDF Preview' %>
+        <% end %>
+
+        <%= tag.div class: 'flex items-center justify-end mb-4' do %>
+          <%= tag.div class: 'flex items-center space-x-2' do %>
+            <%= link_to rails_blob_path(@document.file, disposition: "inline"),
+                target: "_blank",
+                class: 'p-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors' do %>
+              <%= heroicon 'arrows-pointing-out', options: { class: 'size-4' } %>
+            <% end %>
+          <% end %>
+        <% end %>
+
+        <%= tag.div class: 'flex flex-col gap-3' do %>
+          <%= tag.div class: 'flex items-center justify-between text-sm' do %>
+            <%= tag.span 'File Type', class: 'text-muted-foreground' %>
+            <%= tag.span @document.document_type.upcase, class: 'text-foreground font-medium' %>
+          <% end %>
+          <%= tag.div class: 'flex items-center justify-between text-sm' do %>
+            <%= tag.span 'Pages', class: 'text-muted-foreground' %>
+            <%= tag.span '12', class: 'text-foreground font-medium' %>
+          <% end %>
+          <%= tag.div class: 'flex items-center justify-between text-sm' do %>
+            <%= tag.span 'Size', class: 'text-muted-foreground' %>
+            <%= tag.span number_to_human_size(@document.size_bytes), class: 'text-foreground font-medium' %>
+          <% end %>
+          <%= tag.div class: 'flex items-center justify-between text-sm' do %>
+            <%= tag.span 'Processed At', class: 'text-muted-foreground' %>
+            <%= tag.span @document.processed_at.strftime("%m/%d/%Y"), class: 'text-foreground font-medium' %>
+          <% end %>
+        <% end %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>

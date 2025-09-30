@@ -3,7 +3,7 @@
   <%= heroicon 'chevron-right', options: { class: 'text-gray-500 size-3' } %>
   <%= link_to 'Collections', collections_path, class: 'text-gray-500 hover:text-emerald-700' %>
   <%= heroicon 'chevron-right', options: { class: 'text-gray-500 size-3' } %>
-  <%= tag.span @collection.title, class: 'text-emerald-700 underline' %>
+  <%= tag.span @collection.title, id: dom_id(@collection, :breadcrumb), class: 'text-emerald-700 underline' %>
 <% end %>
 
 <%= tag.div :div do %>
@@ -14,15 +14,32 @@
       <% end %>
 
       <%= tag.div do %>
-        <%= tag.h1 @collection.title, class: 'text-3xl font-bold text-foreground' %>
-        <%= tag.p @collection.description, class: 'text-muted-foreground' %>
+        <%= tag.h1 @collection.title, id: dom_id(@collection, :title), class: 'text-3xl font-bold text-foreground' %>
+        <%= tag.p @collection.description, id: dom_id(@collection, :description), class: 'text-muted-foreground' %>
       <% end %>
     <% end %>
 
     <%= tag.div class: 'flex flex-wrap sm:flex-nowrap items-stretch sm:items-center gap-2 sm:gap-3 mt-2 sm:mt-0' do %>
-      <%#= tag.button class: 'p-2 hover:text-primary transition-colors border border-border rounded-lg cursor-pointer' do %>
-        <%# heroicon 'ellipsis-vertical', options: { class: 'size-4' } %>
-      <%# end %>
+      <%= tag.div class: 'relative', data: { controller: 'popover' } do %>
+        <%= tag.button class: 'font-bold p-1 hover:bg-gray-200 rounded cursor-pointer border border-gray-300', data: { action: 'click->popover#toggle' } do %>
+          <%= heroicon 'ellipsis-vertical', options: { class: 'size-4' } %>
+        <% end %>
+        <%= tag.div class: 'absolute right-0 mt-2 w-40 bg-white border border-gray-200 rounded-lg shadow-lg hidden flex-col z-50 overflow-hidden transition-all duration-150 ease-out', data: { popover_target: 'menu' } do %>
+          <%= link_to edit_collection_path(@collection, source: 'single_collection'), class: 'flex items-center px-4 py-2 text-sm text-blue-700 hover:bg-blue-100 hover:text-blue-900 transition-colors duration-150', data: { turbo_frame: 'modal' } do %>
+            <%= heroicon 'pencil', options: { class: 'size-4 mr-2 text-blue-500 group-hover:text-blue-700' } %>
+            Edit
+          <% end %>
+
+          <%= tag.div class: 'border-t border-gray-100' %>
+
+          <%= link_to collection_path(@collection),
+              method: :delete, data: { confirm: 'Are you sure?' },
+              class: 'flex items-center px-4 py-2 text-sm text-red-600 hover:bg-red-50 hover:text-red-700 transition-colors duration-150' do %>
+            <%= heroicon 'trash', options: { class: 'size-4 mr-2' } %>
+            Delete
+          <% end %>
+        <% end %>
+      <% end %>
 
       <%= link_to new_collection_document_path(@collection), class: 'btn-primary flex items-center justify-center gap-2 flex-1 sm:flex-none min-w-[160px]', data: { turbo_frame: 'modal' } do %>
         <%= heroicon 'cloud-arrow-up', options: { class: 'size-4' } %>

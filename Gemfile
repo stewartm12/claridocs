@@ -56,6 +56,7 @@ group :development, :test do
   gem 'rubocop-rails-omakase', require: false
   gem 'rspec-rails'
   gem 'factory_bot_rails'
+  gem 'dotenv'
 end
 
 group :development do
@@ -79,7 +80,12 @@ group :test do
   gem 'selenium-webdriver' # For JavaScript system specs
 end
 
+gem 'docx'            # For Word documents
 gem 'heroicon'
 gem 'httparty'
+gem 'neighbor'
 gem 'pagy'
+gem 'pdf-reader'      # For PDF processing
+gem 'pgvector'        # PostgreSQL vector support
 gem 'rails_icons'
+gem 'ruby-openai'

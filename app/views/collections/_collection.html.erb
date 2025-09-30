@@ -15,7 +15,7 @@
         <%= heroicon 'ellipsis-vertical', options: { class: 'size-4' } %>
       <% end %>
       <%= tag.div class: 'absolute right-0 mt-2 w-40 bg-white border border-gray-200 rounded-lg shadow-lg hidden flex-col z-50 overflow-hidden transition-all duration-150 ease-out', data: { popover_target: 'menu' } do %>
-        <%= link_to edit_collection_path(collection), class: 'flex items-center px-4 py-2 text-sm text-blue-700 hover:bg-blue-100 hover:text-blue-900 transition-colors duration-150', data: { turbo_frame: 'modal' } do %>
+        <%= link_to edit_collection_path(collection, source: 'all_collections'), class: 'flex items-center px-4 py-2 text-sm text-blue-700 hover:bg-blue-100 hover:text-blue-900 transition-colors duration-150', data: { turbo_frame: 'modal' } do %>
           <%= heroicon 'pencil', options: { class: 'size-4 mr-2 text-blue-500 group-hover:text-blue-700' } %>
           Edit
         <% end %>

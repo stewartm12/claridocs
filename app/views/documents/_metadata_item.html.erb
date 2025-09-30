@@ -1,0 +1,16 @@
+<%= tag.button type: 'button',
+    class: 'w-full flex items-center justify-between text-left p-3 bg-gray-50 hover:bg-gray-100 transition-colors duration-200',
+    data: { 
+      accordion_target: 'button',
+      action: 'click->accordion#toggle',
+      index: index 
+    } do %>
+  <%= tag.span key.humanize.titleize, class: 'font-medium text-foreground' %>
+  <%= heroicon 'chevron-right', options: { class: "size-6 bg-gray-200 text-center text-sm font-mono transform transition-transform duration-200 #{index == 0 ? 'rotate-90' : ''}", data_accordion_target: 'icon' } %>
+<% end %>
+
+<%= tag.div class: "mt-3 bg-gray-900 overflow-hidden transition-[max-height] duration-300 ease-out #{index == 0 ? 'max-h-[1000px]' : 'max-h-0'}", data: { accordion_target: 'content' }  do %>
+  <%= tag.pre class: 'text-green-400 text-sm font-mono whitespace-pre-wrap break-words p-4' do %>
+    <%= tag.code JSON.pretty_generate(value) %>
+  <% end %>
+<% end %>
