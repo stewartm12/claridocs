@@ -48,9 +48,7 @@ class CollectionsController < ApplicationController
         flash.now[:success] = 'Successfully Deleted Document'
       end
 
-      format.html do
-        redirect_to collections_path, notice: 'Document Deleted Successfully.'
-      end
+      format.html { redirect_to collections_path, success: 'Successfully Deleted Document' }
     end
   end
 

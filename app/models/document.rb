@@ -12,9 +12,10 @@ class Document < ApplicationRecord
 
   before_validation :set_file_metadata, on: :create
 
-  after_create_commit :process_document_async, if: :ai_extract?
+  after_create_commit :process_document_async
+  after_update_commit :process_document_async
 
-  MEDIA_TYPES = %w[image video audio].freeze
+  INVALID_MEDIA_TYPES = %w[image video audio].freeze
 
   enum :processing_status, {
     pending: 0,
@@ -22,25 +23,27 @@ class Document < ApplicationRecord
     completed: 2,
     failed: 3,
     needs_reprocessing: 4,
-    not_processable: 5
+    skipped: 5
   }
 
   scope :processed, -> { where(processing_status: :completed) }
   scope :ready_for_processing, -> { where(processing_status: %i[pending needs_reprocessing]) }
+  scope :skipped, -> { where(processing_status: :skipped) }
 
-  def semantic_search(query, limit: 5)
-    return DocumentChunk.none unless completed?
+  # def semantic_search(query, limit: 5)
+  #   return DocumentChunk.none unless completed?
 
-    embedding = Document::Embedding.new.generate_embedding(query)
+  #   embedding = Document::Embedding.new.generate_embedding(query)
 
-    document_chunks
-      .nearest_neighbors(:embedding, embedding, distance: 'cosine')
-      .limit(limit)
-      .includes(:document)
-  end
+  #   document_chunks
+  #     .nearest_neighbors(:embedding, embedding, distance: 'cosine')
+  #     .limit(limit)
+  #     .includes(:document)
+  # end
 
-  def process_ai!
-    process_document_async
+  def apply_ai_extract!(flag)
+    self.ai_extract = flag
+    self.processing_status = ai_extract? ? :pending : :skipped
   end
 
   private
@@ -48,7 +51,7 @@ class Document < ApplicationRecord
   def acceptable_file_type
     return unless file.attached?
 
-    if MEDIA_TYPES.any? { |type| file.content_type.start_with?(type) }
+    if INVALID_MEDIA_TYPES.any? { |type| file.content_type.start_with?(type) }
       errors.add(:file, 'cannot be an image, video, or audio file')
     end
   end
@@ -62,6 +65,8 @@ class Document < ApplicationRecord
   end
 
   def process_document_async
+    return unless ai_extract? && processed_at.nil?
+
     DocumentProcessingJob.perform_later(id)
   end
 

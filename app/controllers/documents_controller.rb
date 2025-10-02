@@ -9,8 +9,7 @@ class DocumentsController < ApplicationController
 
   def create
     @document = collection.documents.new(create_params)
-    @document.ai_extract = params[:document][:ai_extract] == '1'
-    @document.processing_status = @document.ai_extract ? :pending : :not_processable
+    @document.apply_ai_extract!(ai_extract_param)
 
     if @document.save
       flash.now[:success] = 'Document uploaded successfully'
@@ -23,9 +22,7 @@ class DocumentsController < ApplicationController
 
   def update
     @source = params[:source] || 'document'
-
-    @document.ai_extract = params[:document][:ai_extract] == '1'
-    @document.processing_status = @document.ai_extract ? :pending : :not_processable
+    @document.apply_ai_extract!(ai_extract_param)
 
     if @document.update(update_params)
       @document.process_ai! if @document.ai_extract?
@@ -57,6 +54,10 @@ class DocumentsController < ApplicationController
 
   def update_params
     params.expect(document: %i[title description])
+  end
+
+  def ai_extract_param
+    params[:document][:ai_extract] == '1'
   end
 
   def collection

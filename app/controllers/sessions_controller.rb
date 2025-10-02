@@ -8,8 +8,7 @@ class SessionsController < ApplicationController
 
   def create
     if user = User.authenticate_by(params.permit(:email, :password))
-      remember_me = params[:remember_me] == '1'
-      start_new_session_for(user, remember_me: remember_me)
+      start_new_session_for(user, remember_me: params[:remember_me] == '1')
 
       redirect_to after_authentication_url
     else
