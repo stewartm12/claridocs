@@ -2,10 +2,10 @@
   <%= tag.div class: 'flex items-start justify-between' do %>
     <%= tag.div do %>
       <%= tag.p title, class: 'text-sm text-muted-foreground' %>
-      <%= tag.p count, class: 'text-xl font-bold' %>
+      <%= tag.p count, class: 'text-2xl font-bold' %>
     <% end %>
 
-    <%= tag.div class: 'size-12 text-emerald-700 bg-emerald-100 rounded-lg flex items-center justify-center' do %>
+    <%= tag.div class: "size-12 text-#{color}-700 bg-#{color}-100 rounded-lg flex items-center justify-center" do %>
       <%= heroicon icon, options: { class: 'size-6' } %>
     <% end %>
   <% end %>
