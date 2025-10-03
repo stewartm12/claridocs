@@ -9,6 +9,10 @@ class CollectionsController < ApplicationController
   end
 
   def show
+    @unprocessed_documents_count = @collection.documents
+                                              .where(processed_at: nil)
+                                              .count
+
     @documents = filtered_and_sorted_documents
   end
 

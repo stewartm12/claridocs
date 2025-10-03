@@ -83,7 +83,7 @@
     <%= tag.div class: 'grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6' do %>
       <%= render 'metric_data', title: 'Total Documents', count: @collection.documents_count, icon: 'document-text' %>
       <%= render 'metric_data', title: 'Total Size', count: number_to_human_size(@collection.total_storage), icon: 'cloud-arrow-up' %>
-      <%= render 'metric_data', title: 'AI Summaries', count: 0, icon: 'sun' %>
+      <%= render 'metric_data', title: 'Docs Missing Summaries', count: @unprocessed_documents_count, icon: 'sun' %>
       <%= render 'metric_data', title: 'Last Updated', count: time_since_updated(@collection), icon: 'clock' %>
     <% end %>
   <% end %>

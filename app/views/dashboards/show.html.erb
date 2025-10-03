@@ -1,5 +1,89 @@
-<%= content_tag :div do %>
-  <%= content_tag :p, 'The Dashboard' %>
+<%= tag.div class: 'mb-8' do %>
+  <%= tag.h1 "Welcome back, #{current_user.name}", class: 'text-3xl font-bold text-foreground mb-2' %>
+  <%= tag.p "Here's what's happening with your documents this week", class: 'text-muted-foreground' %>
 <% end %>
 
-<%= link_to "Sign Out", session_path, method: :delete, data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
+<%= tag.div class: 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 mb-8' do %>
+  <%= render 'metric_data', title: 'Docs Uploaded This Week', count: @documents_count, icon: 'cloud-arrow-up', color: 'emerald' %>
+  <%= render 'metric_data', title: 'Collections Created This Week', count: @collections_count, icon: 'folder', color: 'blue' %>
+  <%= render 'metric_data', title: 'Empty Collections', count: @empty_collections_count, icon: 'exclamation-triangle', color: 'yellow' %>
+  <%= render 'metric_data', title: 'Docs Missing Summaries', count: @unprocessed_documents_count, icon: 'exclamation-triangle', color: 'red' %>
+<% end %>
+
+<%= tag.div class: 'grid lg:grid-cols-2 gap-6 mb-8' do %>
+  <%= tag.div class: 'space-y-6' do %>
+    <%= tag.div class: 'bg-gradient-to-br from-white to-slate-100 rounded-xl p-6 border border-border shadow-sm' do %>
+      <%= tag.div class: 'p-2 border-b border-gray-200' do %>
+        <%= tag.h3 class: 'text-lg font-semibold text-foreground flex items-center' do %>
+          <%= heroicon 'cloud-arrow-up', options: { class: 'size-5 text-primary mr-2' } %>
+          <%= tag.span 'Recently Uploaded Documents' %>
+        <% end %>
+      <% end %>
+
+      <%= tag.div class: 'p-2 space-y-4' do %>
+        <% @recent_documents.each do |document| %>
+          <%= tag.div class: 'flex items-start space-x-3 p-3 rounded-lg border border-gray-200 hover:border-gray-400 hover:bg-gray-100 transition-colors cursor-pointer' do %>
+            <%= tag.div class: 'size-10 bg-red-50 rounded-lg flex items-center justify-center flex-shrink-0' do %>
+              <%= heroicon 'document-text', options: { class: 'size-5 text-red-600' } %>
+            <% end %>
+
+            <%= tag.div class: 'flex-1 min-w-0' do %>
+              <%= link_to document.title, collection_document_path(document.collection, document), class: 'text-sm font-medium text-black hover:text-emerald-700' %>
+              <%= tag.div class: 'flex items-center space-x-3 mt-1' do %>
+                <%= tag.p time_since_created(document), class: 'text-xs text-muted-foreground' %>
+                <%= tag.span '•', class: 'text-xs text-muted-foreground' %>
+                <%= tag.p number_to_human_size(document.size_bytes), class: 'text-xs text-muted-foreground' %>
+              <% end %>
+            <% end %>
+          <% end %>
+        <% end %>
+      <% end %>
+    <% end %>
+
+    <%= tag.div class: 'bg-gradient-to-br from-white to-slate-100 rounded-xl p-6 border border-border shadow-sm' do %>
+      <%= tag.div class: 'p-2 border-b border-gray-200' do %>
+        <%= tag.h3 class: 'text-lg font-semibold text-foreground flex items-center' do %>
+          <%= heroicon 'folder', options: { class: 'size-5 text-blue-500 mr-2' } %>
+          <%= tag.span 'Recently Updated Collections' %>
+        <% end %>
+      <% end %>
+
+      <%= tag.div class: 'p-2 space-y-4' do %>
+        <% @recent_collections.each do |collection| %>
+          <%= tag.div class: 'flex items-center justify-between p-3 rounded-lg border border-gray-200 hover:border-gray-400 hover:bg-gray-100 transition-colors cursor-pointer' do %>
+            <%= tag.div class: 'flex items-center space-x-3' do %>
+              <%= tag.div class: 'w-2 h-2 bg-primary rounded-full' %>
+              <%= tag.div do %>
+                <%= link_to collection.title, collection_path(collection), class: 'text-sm font-medium text-black hover:text-emerald-700' %>
+                <%= tag.p time_since_updated(collection), class: 'text-xs text-muted-foreground' %>
+              <% end %>
+            <% end %>
+
+            <%= tag.span "#{collection.documents_count}", class: 'text-xs bg-gray-200 px-3 py-1 rounded-full font-medium' %>
+          <% end %>
+        <% end %>
+      <% end %>
+    <% end %>
+  <% end %>
+
+  <%= tag.div do %>
+    <%= tag.div class: 'bg-gradient-to-br from-white to-slate-100 rounded-xl p-6 border border-border shadow-sm' do %>
+      <%= tag.div class: 'p-2 border-b border-gray-200' do %>
+        <%= tag.h3 class: 'text-lg font-semibold text-foreground flex items-center' do %>
+          <%= heroicon 'magnifying-glass', options: { class: 'size-5 text-gray-600 mr-2' } %>
+          <%= tag.span 'Recent Searches' %>
+        <% end %>
+      <% end %>
+
+      <%= tag.div class: 'p-2 space-y-4' do %>
+        <%= tag.div class: 'p-4 rounded-lg border border-gray-200 hover:border-gray-400 hover:bg-gray-100 transition-all cursor-pointer' do %>
+          <%= tag.div class: 'flex items-start justify-between mb-2' do %>
+            <%= tag.p 'Contracts expiring soon', class: 'text-sm font-medium text-foreground' %>
+            <%= tag.span '1 hour ago', class: 'text-xs text-muted-foreground whitespace-nowrap ml-2' %>
+          <% end %>
+          <%= tag.p 'Found 12 results', class: 'text-xs text-muted-foreground' %>
+        <% end %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>
