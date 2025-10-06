@@ -3,7 +3,7 @@
   <%= tag.p "Here's what's happening with your documents this week", class: 'text-muted-foreground' %>
 <% end %>
 
-<%= tag.div class: 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 mb-8' do %>
+<%= tag.div class: 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8' do %>
   <%= render 'metric_data', title: 'Docs Uploaded This Week', count: @documents_count, icon: 'cloud-arrow-up', color: 'emerald' %>
   <%= render 'metric_data', title: 'Collections Created This Week', count: @collections_count, icon: 'folder', color: 'blue' %>
   <%= render 'metric_data', title: 'Empty Collections', count: @empty_collections_count, icon: 'exclamation-triangle', color: 'yellow' %>
