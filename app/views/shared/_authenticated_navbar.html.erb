@@ -1,11 +1,41 @@
 <%= content_tag :div, class: 'sticky top-0 z-50 bg-white shadow-sm border-b border-gray-200', data: { controller: :navbar, action: 'resize@window->navbar#closeOnBigScreen keyup@window->navbar#closeWithKeyboard' } do %>
-  <%= content_tag :nav, class: 'px-4 lg:px-6 flex justify-between items-center h-16' do %>
+  <%= content_tag :nav, class: 'px-4 lg:px-6 flex justify-between items-center h-16 gap-4' do %>
     <%= content_tag :div, class: 'flex-shrink-0' do %>
       <%= link_to root_path, class: 'flex items-center group' do %>
         <%= image_tag "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/attachments/gen-images/public/claridocs-logo-modern-clean-F2aiTC3w4Gj16Z3M5yb3pFDckjYReJ.jpg",
           class: "h-8 w-8 mr-3 transition-transform group-hover:scale-105" %>
-        <%= content_tag :span, 'Claridocs', class: 'text-xl font-bold text-gray-900 group-hover:text-emerald-600 transition-colors' %>
+        <%= content_tag :span, 'Claridocs', class: 'text-xl font-bold text-gray-900 group-hover:text-emerald-600 transition-colors hidden lg:inline' %>
       <% end %>
+    <% end %>
+
+    <%# Search Bar - Hidden on mobile, shown on md and up %>
+    <%= content_tag :div, class: 'hidden md:flex flex-1 max-w-2xl', data: { controller: 'search' } do %>
+      <%= form_with url: search_path, method: :get, data: {
+          turbo_stream: true,
+          search_target: 'form',
+          action: 'turbo:submit-end->search#resultsUpdated'
+        }, class: 'w-full' do |f| %>
+        <%= content_tag :div, class: 'relative' do %>
+        <%= f.hidden_field :target_id, value: "search_results" %>
+          <%= f.text_field :q, 
+            placeholder: 'Search documents...', 
+            class: 'w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all',
+            data: { 
+              search_target: 'input',
+              action: 'input->search#handleInput focus->search#handleFocus'
+            },
+            autocomplete: 'off' %>
+          <%= content_tag :div, class: 'absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none' do %>
+            <%= heroicon 'magnifying-glass', options: { class: 'size-5 text-gray-400' } %>
+          <% end %>
+          <%= f.hidden_field :scope, value: 'global' %>
+        <% end %>
+      <% end %>
+
+      <%# Desktop Search Results Dropdown %>
+      <div id="search_results" 
+       class="hidden absolute top-full left-0 right-0 mt-2 bg-white shadow-2xl rounded-lg border border-gray-200 max-h-[600px] overflow-auto z-50" 
+       data-search-target="results"></div>
     <% end %>
 
     <%= content_tag :div, class: 'hidden md:flex items-center space-x-4' do %>
@@ -37,6 +67,36 @@
       <% end %>
     <% end %>
 
+    <%# Mobile Search Bar %>
+    <%= content_tag :div, class: 'relative px-6 py-4 border-b border-gray-200', data: { controller: 'search' } do %>
+      <%= form_with url: search_path, method: :get, data: {
+          turbo_stream: true,
+          search_target: 'form',
+          action: 'turbo:submit-end->search#resultsUpdated'
+        }, class: 'w-full' do |f| %>
+        <%= content_tag :div, class: 'relative' do %>
+          <%= f.hidden_field :target_id, value: 'mobile_search_results' %>
+          <%= f.text_field :q, 
+            placeholder: 'Search documents...', 
+            class: 'w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all',
+            data: { 
+              search_target: 'input',
+              action: 'input->search#handleInput focus->search#handleFocus'
+            },
+            autocomplete: 'off' %>
+          <%= content_tag :div, class: 'absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none' do %>
+            <%= heroicon 'magnifying-glass', options: { class: 'size-5 text-gray-400' } %>
+          <% end %>
+          <%= f.hidden_field :scope, value: 'global' %>
+        <% end %>
+      <% end %>
+
+      <%# Mobile Search Results Dropdown %>
+      <div id="mobile_search_results" 
+       class="hidden absolute top-full left-0 right-0 mt-2 bg-white shadow-2xl rounded-lg border border-gray-200 max-h-[600px] overflow-y-auto z-50" 
+       data-search-target="results"></div>
+    <% end %>
+
     <%= content_tag :div, class: 'px-6 py-4 bg-gray-50 border-b border-gray-200' do %>
       <%= content_tag :div, class: 'flex items-center space-x-3' do %>
         <%= content_tag :div, class: 'h-10 w-10 bg-emerald-100 rounded-full flex items-center justify-center' do %>
@@ -49,7 +109,7 @@
       <% end %>
     <% end %>
 
-    <%= content_tag :div, class: 'flex flex-col justify-between h-[calc(100%-144px)]' do %>
+    <%= content_tag :div, class: 'flex flex-col justify-between h-[calc(100%-224px)]' do %>
       <%= render 'shared/navigation/links', top_nav_class: 'px-3 py-4 space-y-1 overflow-y-auto' %>
     <% end %>
   <% end %>

@@ -30,17 +30,6 @@ class Document < ApplicationRecord
   scope :ready_for_processing, -> { where(processing_status: %i[pending needs_reprocessing]) }
   scope :skipped, -> { where(processing_status: :skipped) }
 
-  # def semantic_search(query, limit: 5)
-  #   return DocumentChunk.none unless completed?
-
-  #   embedding = Document::Embedding.new.generate_embedding(query)
-
-  #   document_chunks
-  #     .nearest_neighbors(:embedding, embedding, distance: 'cosine')
-  #     .limit(limit)
-  #     .includes(:document)
-  # end
-
   def apply_ai_extract!(flag)
     self.ai_extract = flag
     self.processing_status = ai_extract? ? :pending : :skipped

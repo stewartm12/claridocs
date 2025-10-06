@@ -19,11 +19,16 @@ Rails.application.routes.draw do
   # Defines the landing page route
   root 'pages#home'
 
-  resource :session, only: %i[new create destroy]
+  # Sessions
   resource :registration, only: %i[new create]
+  resource :session, only: %i[new create destroy]
   resources :passwords, param: :token, except: %i[index show destroy]
+
   resource :dashboard, only: :show
+
   resources :collections do
     resources :documents, except: :index
   end
+
+  get 'search', to: 'search#index', as: :search
 end
