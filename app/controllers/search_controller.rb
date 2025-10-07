@@ -2,7 +2,6 @@ class SearchController < ApplicationController
   def index
     query = params[:q]
     scope = params[:scope]
-    limit = params[:limit] || 10
     target_id = params[:target_id] || 'search_results' # Default to desktop
 
     # Return empty if query is blank
@@ -15,20 +14,17 @@ class SearchController < ApplicationController
 
     # Determine the search scope
     service = case scope
-    when 'global'
-                Document::SemanticSearch.new(current_user)
     when 'collection'
-                collection = current_user.collections.find(params[:id])
-                Document::SemanticSearch.new(current_user, collection)
+      Document::SemanticSearch.new(collection)
     when 'document'
-                document = collection.documents.find(params[:id])
-                Document::SemanticSearch.new(current_user, document)
+      document = collection.documents.find(params[:document_id])
+      Document::SemanticSearch.new(document)
     else
-                Document::SemanticSearch.new(current_user) # Default to global
+      Document::SemanticSearch.new(current_user) # Default to global
     end
 
     # Perform search
-    results = service.search(query, limit: limit)
+    results = service.search(query, limit: 10)
 
     # Render results
     render turbo_stream: turbo_stream.update(
@@ -46,6 +42,6 @@ class SearchController < ApplicationController
   private
 
   def collection
-    @collection ||= current_user.collections.find(params[:collection_id])
+    current_user.collections.find(params[:collection_id])
   end
 end

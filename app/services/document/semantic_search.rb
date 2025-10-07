@@ -1,6 +1,5 @@
 class Document::SemanticSearch
-  def initialize(user, scope = nil)
-    @user = user
+  def initialize(scope = nil)
     @scope = scope
   end
 
@@ -11,8 +10,8 @@ class Document::SemanticSearch
       DocumentChunk.similarity_search_in_document(query, document: @scope, limit: limit * 2)
     when Collection
       DocumentChunk.similarity_search_in_collection(query, collection: @scope, limit: limit * 2)
-    when NilClass
-      DocumentChunk.similarity_search_for_user(query, user: @user, limit: limit * 2)
+    when User
+      DocumentChunk.similarity_search_for_user(query, user: @scope, limit: limit * 2)
     else
       raise ArgumentError, "Unsupported scope: #{@scope.class}"
     end

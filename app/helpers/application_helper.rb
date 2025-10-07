@@ -55,4 +55,17 @@ module ApplicationHelper
 
     "Generated #{time_ago_in_words(document.processed_at)} ago"
   end
+
+  def search_scope_data
+    case controller_name
+    when 'dashboard'
+      { scope: 'global' }
+    when 'collections'
+      action_name == 'show' ? { scope: 'collection', collection_id: params[:id] } : { scope: 'global' }
+    when 'documents'
+      { scope: 'document', collection_id: params[:collection_id], document_id: params[:id] }
+    else
+      { scope: 'global' }
+    end
+  end
 end
