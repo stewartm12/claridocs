@@ -32,7 +32,7 @@
     <% end %>
 
     <%# Results List %>
-    <%= content_tag :div, class: 'overflow-y-auto max-h-96' do %>
+    <%= content_tag :div, class: 'overflow-y-auto max-h-96 bg-white' do %>
       <% results.each do |result| %>
         <%= link_to collection_document_path(result[:document].collection, result[:document]),
           class: 'block px-4 py-4 hover:bg-gray-50 transition-colors border-b border-gray-100 last:border-0',
