@@ -26,7 +26,7 @@
           <%= "#{results.count} #{'result'.pluralize(results.count)} from #{total_documents} #{'document'.pluralize(total_documents)}" %>
         <% end %>
         <%= content_tag :p, class: 'text-xs text-gray-500' do %>
-          <%= "Query: \"#{query}\"" %>
+          <%= tag.span "Powered by #{current_user.active_chat_model.name} (#{current_user.active_chat_model.ai_integration.name}) and #{current_user.active_embedding_model.name} (#{current_user.active_embedding_model.ai_integration.name})." %>
         <% end %>
       <% end %>
     <% end %>
@@ -88,6 +88,7 @@
       <% end %>
       <%= content_tag :p, class: 'text-sm text-gray-500 max-w-sm mx-auto' do %>
         We couldn't find any documents matching "<%= query %>". Try adjusting your search terms or check your document collection.
+        Verify that you have set up an AI integration to enable semantic search.
       <% end %>
     <% end %>
   <% end %>

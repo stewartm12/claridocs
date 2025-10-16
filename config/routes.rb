@@ -2,6 +2,8 @@ Rails.application.routes.draw do
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   if Rails.env.development? || Rails.env.test?
+    mount MissionControl::Jobs::Engine, at: '/jobs'
+
     resources :code_qualities, only: :index
 
     # Wildcard route for show to capture nested folders
@@ -31,4 +33,18 @@ Rails.application.routes.draw do
   end
 
   get 'search', to: 'search#index', as: :search
+
+  resources :user_integrations, only: :index do
+    member do
+      get :ai_connect
+      patch :update_ai
+
+      # get :cloud_connect
+      delete :disconnect
+    end
+
+    # collection do
+    #   get :oauth_callback  # For cloud provider OAuth callback
+    # end
+  end
 end

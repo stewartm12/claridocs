@@ -1,12 +1,14 @@
 class Document::Ai
-  def initialize
-    @client = OpenAI::Client.new
+  def initialize(user)
+    @user = user
+    @active_chat = user.active_chat_model
+    @client = OpenAI::Client.new(access_token: @user.active_chat_integration&.access_token)
   end
 
   def chat(content)
     response = @client.chat(
       parameters: {
-        model: 'gpt-4.1',
+        model: @active_chat&.name, # chat_integration.ac
         messages: [
           { role: 'system', content: 'You are a helpful assistant that answers questions or provides information based on input.' },
           { role: 'user', content: content }
@@ -22,7 +24,7 @@ class Document::Ai
   def generate_summary(content, max_length: 300)
     response = @client.chat(
       parameters: {
-        model: 'gpt-4.1',
+        model: @active_chat&.name,
         messages: [
           {
             role: 'system',
@@ -44,7 +46,7 @@ class Document::Ai
   def extract_metadata(content)
     response = @client.chat(
       parameters: {
-        model: 'gpt-4.1',
+        model: @active_chat&.name,
         messages: [
           {
             role: 'system',

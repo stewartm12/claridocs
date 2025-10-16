@@ -1,36 +1,43 @@
 class Document::SemanticSearch
-  def initialize(scope = nil)
+  def initialize(scope = nil, user = nil)
     @scope = scope
+    @user = user
   end
 
   def search(query, limit: 10, similarity_threshold: 0.7)
-    # Determine which search method to call based on scope
-    similar_chunks = case @scope
-    when Document
-      DocumentChunk.similarity_search_in_document(query, document: @scope, limit: limit * 2)
-    when Collection
-      DocumentChunk.similarity_search_in_collection(query, collection: @scope, limit: limit * 2)
-    when User
-      DocumentChunk.similarity_search_for_user(query, user: @scope, limit: limit * 2)
+    if @user.has_ai_integration?
+      message = "I couldn't find relevant information to answer your question."
+      # Determine which search method to call based on scope
+      similar_chunks = case @scope
+      when Document
+        DocumentChunk.similarity_search_in_document(query, document: @scope, user: @user, limit: limit * 2)
+      when Collection
+        DocumentChunk.similarity_search_in_collection(query, collection: @scope, user: @user, limit: limit * 2)
+      when User
+        DocumentChunk.similarity_search_for_user(query, user: @scope, limit: limit * 2)
+      else
+        raise ArgumentError, "Unsupported scope: #{@scope.class}"
+      end
+
+      # Filter by similarity threshold
+      results = similar_chunks.map do |chunk|
+        {
+          document: chunk.document,
+          content: chunk.content,
+          summary: chunk.content_summary
+        }
+      end
+
+      build_response(query, results, message: message)
     else
-      raise ArgumentError, "Unsupported scope: #{@scope.class}"
+      message = 'No AI integration found. Please set up an AI integration to use semantic search.'
+      build_response(query, [], message: message)
     end
-
-    # Filter by similarity threshold
-    results = similar_chunks.map do |chunk|
-      {
-        document: chunk.document,
-        content: chunk.content,
-        summary: chunk.content_summary
-      }
-    end
-
-    build_response(query, results)
   end
 
   private
 
-  def build_response(query, results)
+  def build_response(query, results, message:)
     if results.any?
       ai_response = generate_ai_response(query, results.first(3))
       {
@@ -42,7 +49,7 @@ class Document::SemanticSearch
     else
       {
         query: query,
-        ai_response: "I couldn't find relevant information to answer your question.",
+        ai_response: message,
         results: [],
         total_documents: 0
       }
@@ -58,6 +65,6 @@ class Document::SemanticSearch
       "Based on the following document excerpts, please answer this question in clear, plain text without using Markdown, asterisks, lists, or tables. Do not include any formatting — just write full sentences and paragraphs.\n\nQuestion: #{query}\n\nContext:\n#{context}"
     end
 
-    Document::Ai.new.chat(prompt)
+    Document::Ai.new(@user).chat(prompt)
   end
 end

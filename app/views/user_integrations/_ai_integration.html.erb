@@ -1,0 +1,52 @@
+<%= tag.div id: dom_id(user_integration), class: [
+      "bg-gradient-to-br from-white to-slate-200 rounded-xl p-6 shadow-sm hover:shadow-md transition-all duration-200 cursor-pointer flex flex-col justify-between min-h-[260px] border",
+      user_integration.access_token.nil? ? "border-gray-300" : "border-emerald-500"
+    ] do %>
+  <%= tag.div class: 'flex items-start justify-between mb-4' do %>
+    <%= tag.div class: 'w-10 h-10 md:w-12 md:h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center' do %>
+      <%= heroicon 'sun', options: { class: 'size-5 text-white' } %>
+    <% end %>
+
+    <% if user_integration.access_token.nil? %>
+      <%= tag.span class: 'px-2 md:px-3 py-1 bg-gray-100 text-muted-foreground text-xs font-medium rounded-full whitespace-nowrap' do %>
+        Not Connected
+      <% end %>
+    <% else %>
+      <%= tag.span class: 'px-2 md:px-3 py-1 bg-emerald-100 text-primary text-xs font-medium rounded-full flex items-center' do %>
+        <%= tag.span class: 'w-2 h-2 bg-primary rounded-full mr-2' %> Connected
+      <% end %>
+    <% end %>
+  <% end %>
+
+  <%= tag.h3 user_integration.integration.name, class: 'text-base md:text-lg font-semibold text-foreground mb-1 truncate' %>
+  <%= tag.p user_integration.integration.description, class: 'text-xs md:text-sm text-muted-foreground mb-3 leading-relaxed line-clamp-2' %>
+
+  <% if user_integration.access_token.nil? %>
+    <%= tag.div class: 'bg-gray-50 rounded-lg p-4 mb-4 flex-1' do %>
+      <%= tag.p 'Available Models', class: 'text-xs text-muted-foreground mb-2' %>
+      <%= tag.ul class: 'text-xs text-foreground space-y-1' do %>
+        <% user_integration.integration.ai_models.each do |ai_model| %>
+          <%= tag.li "• #{ai_model.name}" %>
+        <% end %>
+      <% end %>
+    <% end %>
+
+    <%= link_to 'Connect Provider', ai_connect_user_integration_path(user_integration), class: 'btn-primary w-full sm:w-auto mt-auto', data: { turbo_frame: 'modal' } %>
+  <% else %>
+    <%= tag.div class: 'space-y-3 mb-4' do %>
+      <%= tag.div class: 'bg-gray-50 rounded-lg p-3 mb-4' do %>
+        <%= tag.p 'Chat Model', class: 'text-xs text-muted-foreground mb-1' %>
+        <%= tag.p user_integration.active_chat.name, class: 'text-sm font-medium text-foreground' %>
+      <% end %>
+      <%= tag.div class: 'bg-gray-50 rounded-lg p-3' do %>
+        <%= tag.p 'Embedding Model', class: 'text-xs text-muted-foreground mb-1' %>
+        <%= tag.p user_integration.active_embedding.name, class: 'text-sm font-medium text-foreground' %>
+      <% end %>
+    <% end %>
+
+    <%= tag.div class: 'flex flex-col sm:flex-row gap-2' do %>
+      <%= link_to 'Configure', ai_connect_user_integration_path(user_integration), data: { turbo_frame: 'modal' }, class: 'btn-secondary' %>
+      <%= link_to 'Disconnect', disconnect_user_integration_path(user_integration), method: :delete, data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: 'btn-secondary text-red-500' %>
+    <% end %>
+  <% end %>
+<% end %>
