@@ -15,12 +15,12 @@ class SearchController < ApplicationController
     # Determine the search scope
     service = case scope
     when 'collection'
-      Document::SemanticSearch.new(collection)
+      Document::SemanticSearch.new(collection, current_user)
     when 'document'
       document = collection.documents.find(params[:document_id])
-      Document::SemanticSearch.new(document)
+      Document::SemanticSearch.new(document, current_user)
     else
-      Document::SemanticSearch.new(current_user) # Default to global
+      Document::SemanticSearch.new(current_user, current_user) # Default to global
     end
 
     # Perform search

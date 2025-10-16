@@ -1,12 +1,14 @@
 class Document::Embedding
-  def initialize
-    @client = OpenAI::Client.new
+  def initialize(user)
+    @user = user
+    @active_embedding = user.active_embedding_model
+    @client = OpenAI::Client.new(access_token: @user.active_chat_integration&.access_token)
   end
 
   def generate_embedding(text)
     response = @client.embeddings(
       parameters: {
-        model: 'text-embedding-3-small', # or text-embedding-ada-002
+        model: @active_embedding&.name,
         input: text
       }
     )

@@ -1,0 +1,5 @@
+<%= render_flash_stream %>
+
+<%= turbo_stream.replace dom_id(@user_integration) do %>
+  <%= render 'ai_integration', user_integration: @user_integration %>
+<% end %>

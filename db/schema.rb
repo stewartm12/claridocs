@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_09_30_033204) do
+ActiveRecord::Schema[8.0].define(version: 2025_10_14_155908) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "vector"
@@ -41,6 +41,16 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_30_033204) do
     t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
+  create_table "ai_models", force: :cascade do |t|
+    t.bigint "ai_integration_id", null: false
+    t.string "provider", null: false
+    t.string "name", null: false
+    t.string "category", null: false
+    t.text "description", null: false
+    t.jsonb "config", default: {}, null: false
+    t.index ["ai_integration_id"], name: "index_ai_models_on_ai_integration_id"
   end
 
   create_table "collections", force: :cascade do |t|
@@ -94,6 +104,18 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_30_033204) do
     t.index ["processing_status"], name: "index_documents_on_processing_status"
   end
 
+  create_table "integrations", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "provider", null: false
+    t.string "url"
+    t.text "description", null: false
+    t.jsonb "config", default: {}, null: false
+    t.string "type", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_integrations_on_name", unique: true
+  end
+
   create_table "sessions", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.string "ip_address"
@@ -109,6 +131,26 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_30_033204) do
     t.index ["user_id"], name: "index_sessions_on_user_id"
   end
 
+  create_table "user_integrations", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "integration_id", null: false
+    t.bigint "active_chat_id"
+    t.bigint "active_embedding_id"
+    t.string "access_token"
+    t.string "refresh_token"
+    t.datetime "token_expires_at"
+    t.datetime "connected_at"
+    t.string "username"
+    t.jsonb "config", default: {}, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["active_chat_id"], name: "index_user_integrations_on_active_chat_id"
+    t.index ["active_embedding_id"], name: "index_user_integrations_on_active_embedding_id"
+    t.index ["integration_id"], name: "index_user_integrations_on_integration_id"
+    t.index ["user_id", "integration_id"], name: "index_user_integrations_on_user_id_and_integration_id", unique: true
+    t.index ["user_id"], name: "index_user_integrations_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "name", null: false
     t.string "email", null: false
@@ -121,8 +163,13 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_30_033204) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "ai_models", "integrations", column: "ai_integration_id"
   add_foreign_key "collections", "users"
   add_foreign_key "document_chunks", "documents"
   add_foreign_key "documents", "collections"
   add_foreign_key "sessions", "users"
+  add_foreign_key "user_integrations", "ai_models", column: "active_chat_id"
+  add_foreign_key "user_integrations", "ai_models", column: "active_embedding_id"
+  add_foreign_key "user_integrations", "integrations"
+  add_foreign_key "user_integrations", "users"
 end

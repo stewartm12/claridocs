@@ -11,8 +11,8 @@ class DocumentChunk < ApplicationRecord
   scope :with_embeddings, -> { where.not(embedding: nil) }
 
   # --- Search within a specific collection ---
-  def self.similarity_search_in_collection(query, collection:, limit: 10)
-    embedding = Document::Embedding.new.generate_embedding(query)
+  def self.similarity_search_in_collection(query, collection:, user:, limit: 10)
+    embedding = Document::Embedding.new(user).generate_embedding(query)
 
     nearest_neighbors(:embedding, embedding, distance: 'cosine')
       .where(document: collection.documents)
@@ -21,8 +21,8 @@ class DocumentChunk < ApplicationRecord
   end
 
   # --- Search within a specific document ---
-  def self.similarity_search_in_document(query, document:, limit: 10)
-    embedding = Document::Embedding.new.generate_embedding(query)
+  def self.similarity_search_in_document(query, document:, user:, limit: 10)
+    embedding = Document::Embedding.new(user).generate_embedding(query)
 
     nearest_neighbors(:embedding, embedding, distance: 'cosine')
       .where(document_id: document.id)
@@ -32,7 +32,7 @@ class DocumentChunk < ApplicationRecord
 
   # --- Search across all documents/collections of a specific user ---
   def self.similarity_search_for_user(query, user:, limit: 10)
-    embedding = Document::Embedding.new.generate_embedding(query)
+    embedding = Document::Embedding.new(user).generate_embedding(query)
 
     nearest_neighbors(:embedding, embedding, distance: 'cosine')
       .joins(document: :collection)

@@ -13,7 +13,7 @@ class Document < ApplicationRecord
   before_validation :set_file_metadata, on: :create
 
   after_create_commit :process_document_async
-  after_update_commit :process_document_async
+  # after_update_commit :process_document_async
 
   INVALID_MEDIA_TYPES = %w[image video audio].freeze
 
@@ -33,6 +33,10 @@ class Document < ApplicationRecord
   def apply_ai_extract!(flag)
     self.ai_extract = flag
     self.processing_status = ai_extract? ? :pending : :skipped
+  end
+
+  def process_ai!
+    process_document_async
   end
 
   private
@@ -56,7 +60,15 @@ class Document < ApplicationRecord
   def process_document_async
     return unless ai_extract? && processed_at.nil?
 
-    DocumentProcessingJob.perform_later(id)
+    if user.has_ai_integration?
+      DocumentProcessingJob.perform_later(document_id: id, user_id: user.id)
+    else
+      update!(
+        processing_status: :failed,
+        ai_extract: false,
+        extracted_metadata: { error: 'No active AI integration', failed_at: Time.current }
+      )
+    end
   end
 
   def calculate_content_hash

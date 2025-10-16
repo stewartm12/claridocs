@@ -2,12 +2,16 @@ class Document::Processing
   MAX_CHUNK_SIZE = 1000 # tokens
   CHUNK_OVERLAP = 200   # tokens overlap between chunks
 
-  def initialize(document)
+  def initialize(document, user)
     @document = document
+    @user = user
+    # @chat_integration = user.active_chat_integration
+    # @embedding_integration = @user.active_embedding_integration
   end
 
   def call
     return false unless @document.file.attached?
+    return false unless @user.has_ai_integration?
 
     @document.update!(processing_status: :processing, processed_at: nil)
 
@@ -63,7 +67,6 @@ class Document::Processing
 
   def extract_pdf_content
     # Using pdf-reader gem or similar
-    # require 'pdf/reader'
 
     reader = PDF::Reader.new(StringIO.new(@document.file.download))
     reader.pages.map(&:text).join("\n")
@@ -71,7 +74,6 @@ class Document::Processing
 
   def extract_word_content
     # Using docx gem or similar for .docx files
-    # require 'docx'
 
     doc = Docx::Document.open(StringIO.new(@document.file.download))
     doc.paragraphs.map(&:text).join("\n")
@@ -131,7 +133,7 @@ class Document::Processing
   end
 
   def generate_embeddings(chunks)
-    embedding_service = Document::Embedding.new
+    embedding_service = Document::Embedding.new(@user)
 
     chunks.each do |chunk|
       embedding = embedding_service.generate_embedding(chunk.content)
@@ -147,7 +149,7 @@ class Document::Processing
 
   def generate_document_summary(content)
     # Use AI service to generate summary
-    Document::Ai.new.generate_summary(content, max_length: 500)
+    Document::Ai.new(@user).generate_summary(content, max_length: 500)
   rescue StandardError => e
     Rails.logger.error "Failed to generate document summary: #{e.message}"
     nil
@@ -155,7 +157,7 @@ class Document::Processing
 
   def generate_chunk_summary(content)
     # Use AI service to generate chunk summary
-    Document::Ai.new.generate_summary(content, max_length: 200)
+    Document::Ai.new(@user).generate_summary(content, max_length: 200)
   rescue StandardError => e
     Rails.logger.error "Failed to generate chunk summary: #{e.message}"
     nil
@@ -163,7 +165,7 @@ class Document::Processing
 
   def extract_document_metadata(content)
     # Extract metadata using AI
-    Document::Ai.new.extract_metadata(content)
+    Document::Ai.new(@user).extract_metadata(content)
   rescue StandardError => e
     Rails.logger.error "Failed to extract metadata: #{e.message}"
     {}

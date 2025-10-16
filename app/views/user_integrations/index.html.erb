@@ -1,0 +1,19 @@
+<%= tag.div class: 'mb-6 md:mb-8 text-center md:text-left' do %>
+  <%= tag.h1 'Integrations', class: 'text-2xl md:text-3xl font-bold text-foreground mb-2' %>
+  <%= tag.p 'Connect your favorite tools and services to enhance your Claridocs experience', class: 'text-sm md:text-base text-muted-foreground leading-relaxed max-w-2xl mx-auto md:mx-0' %>
+<% end %>
+
+<%= tag.div class: 'mb-8 md:mb-12' do %>
+  <%= tag.div class: 'flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6 gap-3 text-center sm:text-left' do %>
+    <%= tag.div do %>
+      <%= tag.h2 'AI Integrations', class: 'text-xl md:text-2xl font-bold text-foreground mb-1' %>
+      <%= tag.p 'Connect AI providers for document summaries and intelligent search', class: 'text-xs md:text-sm text-muted-foreground' %>
+    <% end %>
+  <% end %>
+
+  <%= tag.div class: 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6' do %>
+    <% @user_integrations.each do |user_integration| %>
+      <%= render 'ai_integration', user_integration: user_integration %>
+    <% end %>
+  <% end %>
+<% end %>

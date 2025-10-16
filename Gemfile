@@ -83,6 +83,7 @@ end
 gem 'docx'            # For Word documents
 gem 'heroicon'
 gem 'httparty'
+gem 'mission_control-jobs'
 gem 'neighbor'
 gem 'pagy'
 gem 'pdf-reader'      # For PDF processing
