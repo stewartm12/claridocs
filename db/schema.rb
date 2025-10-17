@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_10_14_155908) do
+ActiveRecord::Schema[8.0].define(version: 2025_10_17_162354) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "vector"
@@ -95,6 +95,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_14_155908) do
     t.text "ai_summary"
     t.jsonb "extracted_metadata", default: {}
     t.boolean "ai_extract", default: false, null: false
+    t.integer "page_count", default: 0, null: false
     t.index ["ai_extract"], name: "index_documents_on_ai_extract"
     t.index ["collection_id", "title"], name: "index_documents_on_collection_id_and_title", unique: true
     t.index ["collection_id"], name: "index_documents_on_collection_id"

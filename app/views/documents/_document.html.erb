@@ -16,7 +16,7 @@
 
         <%= tag.div class: 'border-t border-gray-100' %>
 
-        <%= link_to collection_document_path(@collection, document),
+        <%= link_to collection_document_path(@collection, document, source: 'single_collection'),
             data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' },
             class: 'flex items-center px-4 py-2 text-sm text-red-600 hover:bg-red-50 hover:text-red-700 transition-colors duration-150' do %>
           <%= heroicon 'trash', options: { class: 'size-4 mr-2' } %>

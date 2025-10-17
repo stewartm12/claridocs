@@ -44,7 +44,7 @@
         <%= heroicon 'pencil-square', options: { class: 'size-4 text-blue-500' } %>
         <%= tag.span 'Edit', class: 'hidden sm:inline ml-1 sm:ml-2 text-blue-500' %>
       <% end %>
-      <%= link_to collection_document_path(@collection, @document), class: 'flex items-center btn-secondary  px-3 py-2 sm:px-4 sm:py-2 text-sm sm:text-base', method: :delete, data: { confirm: 'Are you sure?' } do %>
+      <%= link_to collection_document_path(@collection, @document, source: 'document'), class: 'flex items-center btn-secondary  px-3 py-2 sm:px-4 sm:py-2 text-sm sm:text-base', data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' } do %>
         <%= heroicon 'trash', options: { class: 'size-4 text-red-500' } %>
         <%= tag.span 'Delete', class: 'hidden sm:inline ml-1 sm:ml-2 text-red-500' %>
       <% end %>
@@ -126,7 +126,7 @@
           <% end %>
           <%= tag.div class: 'flex items-center justify-between text-sm' do %>
             <%= tag.span 'Pages', class: 'text-muted-foreground' %>
-            <%= tag.span '12', class: 'text-foreground font-medium' %>
+            <%= tag.span @document.page_count, class: 'text-foreground font-medium' %>
           <% end %>
           <%= tag.div class: 'flex items-center justify-between text-sm' do %>
             <%= tag.span 'Size', class: 'text-muted-foreground' %>

@@ -9,7 +9,7 @@
     <%= tag.div class: 'grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6' do %>
       <%= render 'collections/metric_data', title: 'Total Documents', count: @collection.documents_count, icon: 'document-text' %>
       <%= render 'collections/metric_data', title: 'Total Size', count: number_to_human_size(@collection.total_storage), icon: 'cloud-arrow-up' %>
-      <%= render 'collections/metric_data', title: 'AI Summaries', count: 0, icon: 'sun' %>
+      <%= render 'collections/metric_data', title: 'AI Summaries', count: @collection.documents.where.not(ai_summary: nil).count, icon: 'sun' %>
       <%= render 'collections/metric_data', title: 'Last Updated', count: time_since_updated(@collection), icon: 'clock' %>
     <% end %>
   <% end %>
