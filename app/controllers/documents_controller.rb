@@ -33,16 +33,13 @@ class DocumentsController < ApplicationController
   end
 
   def destroy
+    @source = params[:source] || 'document'
     @document.destroy!
 
-    respond_to do |format|
-      format.turbo_stream do
-        flash.now[:success] = 'Document Deleted Successfully.'
-      end
-
-      format.html do
-        redirect_to collection_path(@collection), notice: 'Document Deleted Successfully.'
-      end
+    if @source == 'document'
+      redirect_to collection_path(@collection), notice: 'Document Deleted Successfully.' and return
+    else
+      flash.now[:success] = 'Document Deleted Successfully.'
     end
   end
 

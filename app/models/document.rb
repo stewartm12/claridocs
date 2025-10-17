@@ -58,6 +58,7 @@ class Document < ApplicationRecord
   end
 
   def process_document_async
+    setup_pages_count
     return unless ai_extract? && processed_at.nil?
 
     if user.has_ai_integration?
@@ -69,6 +70,13 @@ class Document < ApplicationRecord
         extracted_metadata: { error: 'No active AI integration', failed_at: Time.current }
       )
     end
+  end
+
+  def setup_pages_count
+    return unless file.attached? && file.content_type == 'application/pdf'
+
+    reader = PDF::Reader.new(StringIO.new(file.download))
+    update!(page_count: reader.page_count)
   end
 
   def calculate_content_hash
