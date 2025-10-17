@@ -67,11 +67,6 @@
         <%= heroicon 'magnifying-glass', options: { class: 'size-4 absolute left-3 top-3 text-muted-foreground' } %>
       <% end %>
 
-      <%= f.select :type,
-        options_for_select(Document.options_for_select, params[:type]),
-        { include_blank: 'All Types' },
-        class: 'bg-white p-2 rounded-md font-medium text-sm border border-gray-400 hover:bg-gray-100 w-full sm:w-auto' %>
-
       <%= f.select :sort,
         options_for_select([['Sort By Title', 'title'], ['Sort By Updated At', 'updated_at'], ['Sort By Document Type', 'document_type'], ['Sort By Document Size', 'size_bytes']], params[:sort]),
         { include_blank: 'Sort By Creation Date' },

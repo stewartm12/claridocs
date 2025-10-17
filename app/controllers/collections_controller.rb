@@ -74,7 +74,6 @@ class CollectionsController < ApplicationController
   def filtered_and_sorted_documents
     documents = @collection.documents
     documents = filter_by_title(documents)
-    documents = filter_by_type(documents)
     sort_documents(documents)
   end
 
@@ -82,12 +81,6 @@ class CollectionsController < ApplicationController
     return documents unless params[:title].present?
 
     documents.where('title ILIKE ?', "%#{params[:title]}%")
-  end
-
-  def filter_by_type(documents)
-    return documents unless params[:type].present?
-
-    documents.where(document_type: params[:type])
   end
 
   def sort_documents(documents)

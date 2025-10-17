@@ -1,5 +1,5 @@
 class Document < ApplicationRecord
-  include DocumentTypeMappings
+  # include DocumentTypeMappings
 
   has_one_attached :file
 
@@ -8,14 +8,13 @@ class Document < ApplicationRecord
   has_many :document_chunks, dependent: :destroy
 
   validates :title, presence: true, uniqueness: { scope: :collection_id, case_sensitive: false }
-  validate :acceptable_file_type
 
-  before_validation :set_file_metadata, on: :create
+  before_create :acceptable_file_type
+  before_create :set_file_metadata
 
   after_create_commit :process_document_async
-  # after_update_commit :process_document_async
 
-  INVALID_MEDIA_TYPES = %w[image video audio].freeze
+  VALID_PDF_FILE = 'application/pdf'.freeze
 
   enum :processing_status, {
     pending: 0,
@@ -25,6 +24,8 @@ class Document < ApplicationRecord
     needs_reprocessing: 4,
     skipped: 5
   }
+
+  enum :document_type, { 'application/pdf' => 0 }
 
   scope :processed, -> { where(processing_status: :completed) }
   scope :ready_for_processing, -> { where(processing_status: %i[pending needs_reprocessing]) }
@@ -44,15 +45,15 @@ class Document < ApplicationRecord
   def acceptable_file_type
     return unless file.attached?
 
-    if INVALID_MEDIA_TYPES.any? { |type| file.content_type.start_with?(type) }
-      errors.add(:file, 'cannot be an image, video, or audio file')
+    unless VALID_PDF_FILE == file.content_type
+      errors.add(:file, 'must be a PDF document')
     end
   end
 
   def set_file_metadata
     return unless file.attached?
 
-    self.document_type = self.class.from_mime(file.content_type)
+    self.document_type = document_type
     self.title = File.basename(file.filename.to_s, File.extname(file.filename.to_s))
     self.size_bytes = file.blob.byte_size
   end

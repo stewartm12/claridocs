@@ -13,20 +13,21 @@ module ApplicationHelper
   end
 
   DOC_TYPE_COLORS = {
-    pdf:  %i[bg-red-100 text-red-600],
-    doc:  %i[bg-blue-100 text-blue-600],
-    docx: %i[bg-blue-100 text-blue-600],
-    txt:  %i[bg-gray-100 text-gray-600],
-    rtf:  %i[bg-purple-100 text-purple-600],
-    xls:  %i[bg-green-100 text-green-600],
-    xlsx: %i[bg-green-100 text-green-600],
-    ppt:  %i[bg-orange-100 text-orange-600],
-    pptx: %i[bg-orange-100 text-orange-600],
-    md:   %i[bg-yellow-100 text-yellow-600]
+    'application/pdf' =>  %i[bg-red-100 text-red-600],
+    'application/doc' =>  %i[bg-blue-100 text-blue-600],
+    'application/docx' => %i[bg-blue-100 text-blue-600],
+    'application/txt' =>  %i[bg-gray-100 text-gray-600],
+    'application/rtf' =>  %i[bg-purple-100 text-purple-600],
+    'application/xls' =>  %i[bg-green-100 text-green-600],
+    'application/xlsx' => %i[bg-green-100 text-green-600],
+    'application/ppt' =>  %i[bg-orange-100 text-orange-600],
+    'application/pptx' => %i[bg-orange-100 text-orange-600],
+    'application/md' =>   %i[bg-yellow-100 text-yellow-600]
   }.freeze
 
-  def document_color_classes(mime_type)
-    doc_color = DOC_TYPE_COLORS[mime_type.to_sym] || %i[bg-gray-100 text-gray-600]
+  def document_color_classes(file_type)
+    debugger
+    doc_color = DOC_TYPE_COLORS[file_type] || %i[bg-gray-100 text-gray-600]
     doc_color.join(' ')
   end
 

@@ -122,7 +122,7 @@
         <%= tag.div class: 'flex flex-col gap-3' do %>
           <%= tag.div class: 'flex items-center justify-between text-sm' do %>
             <%= tag.span 'File Type', class: 'text-muted-foreground' %>
-            <%= tag.span @document.document_type.upcase, class: 'text-foreground font-medium' %>
+            <%= tag.span @document.document_type, class: 'text-foreground font-medium' %>
           <% end %>
           <%= tag.div class: 'flex items-center justify-between text-sm' do %>
             <%= tag.span 'Pages', class: 'text-muted-foreground' %>
