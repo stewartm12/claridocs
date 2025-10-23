@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
-gem 'rails', '~> 8.0.3'
+gem 'rails', '~> 8.1.0'
 # The modern asset pipeline for Rails [https://github.com/rails/propshaft]
 gem 'propshaft'
 # Use postgresql as the database for Active Record
@@ -63,7 +63,7 @@ group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem 'web-console'
 
-  gem 'bullet'
+  # gem 'bullet'            # N+1 query detection (Does not currently support Rails 8.1)
   gem 'rack-mini-profiler'  # Performance profiling
   gem 'memory_profiler'     # Memory usage analysis
   gem 'redcarpet'

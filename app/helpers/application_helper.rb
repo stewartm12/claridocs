@@ -26,7 +26,6 @@ module ApplicationHelper
   }.freeze
 
   def document_color_classes(file_type)
-    debugger
     doc_color = DOC_TYPE_COLORS[file_type] || %i[bg-gray-100 text-gray-600]
     doc_color.join(' ')
   end
