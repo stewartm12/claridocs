@@ -10,30 +10,30 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_10_17_162354) do
+ActiveRecord::Schema[8.1].define(version: 2025_10_23_142746) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "vector"
 
   create_table "active_storage_attachments", force: :cascade do |t|
-    t.string "name", null: false
-    t.string "record_type", null: false
-    t.bigint "record_id", null: false
     t.bigint "blob_id", null: false
     t.datetime "created_at", null: false
+    t.string "name", null: false
+    t.bigint "record_id", null: false
+    t.string "record_type", null: false
     t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
     t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
   end
 
   create_table "active_storage_blobs", force: :cascade do |t|
-    t.string "key", null: false
-    t.string "filename", null: false
-    t.string "content_type"
-    t.text "metadata"
-    t.string "service_name", null: false
     t.bigint "byte_size", null: false
     t.string "checksum"
+    t.string "content_type"
     t.datetime "created_at", null: false
+    t.string "filename", null: false
+    t.string "key", null: false
+    t.text "metadata"
+    t.string "service_name", null: false
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
@@ -45,34 +45,34 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_17_162354) do
 
   create_table "ai_models", force: :cascade do |t|
     t.bigint "ai_integration_id", null: false
-    t.string "provider", null: false
-    t.string "name", null: false
     t.string "category", null: false
-    t.text "description", null: false
     t.jsonb "config", default: {}, null: false
+    t.text "description", null: false
+    t.string "name", null: false
+    t.string "provider", null: false
     t.index ["ai_integration_id"], name: "index_ai_models_on_ai_integration_id"
   end
 
   create_table "collections", force: :cascade do |t|
-    t.string "title", null: false
+    t.datetime "created_at", null: false
     t.text "description"
     t.integer "documents_count", default: 0, null: false
-    t.bigint "user_id", null: false
-    t.datetime "created_at", null: false
+    t.string "title", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
     t.index ["user_id", "title"], name: "index_collections_on_user_id_and_title", unique: true
     t.index ["user_id"], name: "index_collections_on_user_id"
   end
 
   create_table "document_chunks", force: :cascade do |t|
-    t.bigint "document_id", null: false
+    t.integer "character_count", default: 0
+    t.integer "chunk_index", null: false
     t.text "content", null: false
     t.text "content_summary"
-    t.integer "chunk_index", null: false
-    t.integer "character_count", default: 0
+    t.datetime "created_at", null: false
+    t.bigint "document_id", null: false
     t.vector "embedding", limit: 1536
     t.jsonb "metadata", default: {}
-    t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["document_id", "chunk_index"], name: "index_document_chunks_on_document_id_and_chunk_index", unique: true
     t.index ["document_id"], name: "index_document_chunks_on_document_id"
@@ -81,21 +81,21 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_17_162354) do
   end
 
   create_table "documents", force: :cascade do |t|
-    t.string "title", null: false
-    t.string "description"
-    t.bigint "size_bytes", default: 0, null: false
-    t.integer "document_type", default: 0, null: false
-    t.bigint "collection_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "processing_status", default: 0, null: false
-    t.string "content_hash"
-    t.datetime "processed_at"
-    t.integer "chunk_count", default: 0, null: false
-    t.text "ai_summary"
-    t.jsonb "extracted_metadata", default: {}
     t.boolean "ai_extract", default: false, null: false
+    t.text "ai_summary"
+    t.integer "chunk_count", default: 0, null: false
+    t.bigint "collection_id", null: false
+    t.string "content_hash"
+    t.datetime "created_at", null: false
+    t.string "description"
+    t.integer "document_type", default: 0, null: false
+    t.jsonb "extracted_metadata", default: {}
     t.integer "page_count", default: 0, null: false
+    t.datetime "processed_at"
+    t.integer "processing_status", default: 0, null: false
+    t.bigint "size_bytes", default: 0, null: false
+    t.string "title", null: false
+    t.datetime "updated_at", null: false
     t.index ["ai_extract"], name: "index_documents_on_ai_extract"
     t.index ["collection_id", "title"], name: "index_documents_on_collection_id_and_title", unique: true
     t.index ["collection_id"], name: "index_documents_on_collection_id"
@@ -106,26 +106,26 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_17_162354) do
   end
 
   create_table "integrations", force: :cascade do |t|
+    t.jsonb "config", default: {}, null: false
+    t.datetime "created_at", null: false
+    t.text "description", null: false
     t.string "name", null: false
     t.string "provider", null: false
-    t.string "url"
-    t.text "description", null: false
-    t.jsonb "config", default: {}, null: false
     t.string "type", null: false
-    t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "url"
     t.index ["name"], name: "index_integrations_on_name", unique: true
   end
 
   create_table "sessions", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.string "ip_address"
-    t.string "user_agent"
     t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "expires_at"
+    t.string "ip_address"
     t.string "remember_token"
     t.datetime "remember_token_expires_at"
-    t.datetime "expires_at"
+    t.datetime "updated_at", null: false
+    t.string "user_agent"
+    t.bigint "user_id", null: false
     t.index ["expires_at"], name: "index_sessions_on_expires_at", unique: true
     t.index ["remember_token"], name: "index_sessions_on_remember_token", unique: true
     t.index ["remember_token_expires_at"], name: "index_sessions_on_remember_token_expires_at", unique: true
@@ -133,18 +133,18 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_17_162354) do
   end
 
   create_table "user_integrations", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.bigint "integration_id", null: false
+    t.string "access_token"
     t.bigint "active_chat_id"
     t.bigint "active_embedding_id"
-    t.string "access_token"
+    t.jsonb "config", default: {}, null: false
+    t.datetime "connected_at"
+    t.datetime "created_at", null: false
+    t.bigint "integration_id", null: false
     t.string "refresh_token"
     t.datetime "token_expires_at"
-    t.datetime "connected_at"
-    t.string "username"
-    t.jsonb "config", default: {}, null: false
-    t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.string "username"
     t.index ["active_chat_id"], name: "index_user_integrations_on_active_chat_id"
     t.index ["active_embedding_id"], name: "index_user_integrations_on_active_embedding_id"
     t.index ["integration_id"], name: "index_user_integrations_on_integration_id"
@@ -153,12 +153,12 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_17_162354) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "name", null: false
-    t.string "email", null: false
-    t.string "password_digest", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
     t.integer "collections_count", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.string "email", null: false
+    t.string "name", null: false
+    t.string "password_digest", null: false
+    t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 

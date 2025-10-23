@@ -7,7 +7,7 @@ class User < ApplicationRecord
   has_many :user_integrations, dependent: :destroy
 
   validates :name, :email, presence: true
-  validates :password, password_complexity: true
+  validates :password, password_complexity: true, if: -> { !Rails.env.development? }
   validates :email, uniqueness: { case_sensitive: false }, format: { with: URI::MailTo::EMAIL_REGEXP }
 
   normalizes :email, with: ->(e) { e.strip.downcase }

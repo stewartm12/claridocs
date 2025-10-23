@@ -7,6 +7,8 @@ class PasswordComplexityValidator < ActiveModel::EachValidator
   }.freeze
 
   def validate_each(record, attribute, value)
+    return if value.blank?
+
     RULES.each do |regex, message|
       record.errors.add(attribute, message) unless value =~ regex
     end
