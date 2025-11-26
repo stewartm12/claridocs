@@ -1,0 +1,277 @@
+es:
+  activerecord:
+    errors:
+      messages:
+        record_invalid: 'La validación falló: %{errors}'
+        restrict_dependent_destroy:
+          has_one: No se puede eliminar el registro porque existe un %{record} dependiente
+          has_many: No se puede eliminar el registro porque existen %{record} dependientes
+  date:
+    abbr_day_names:
+    - dom
+    - lun
+    - mar
+    - mié
+    - jue
+    - vie
+    - sáb
+    abbr_month_names:
+    -
+    - ene
+    - feb
+    - mar
+    - abr
+    - may
+    - jun
+    - jul
+    - ago
+    - sep
+    - oct
+    - nov
+    - dic
+    day_names:
+    - domingo
+    - lunes
+    - martes
+    - miércoles
+    - jueves
+    - viernes
+    - sábado
+    formats:
+      default: "%-d/%-m/%Y"
+      long: "%-d de %B de %Y"
+      short: "%-d de %b"
+    month_names:
+    -
+    - enero
+    - febrero
+    - marzo
+    - abril
+    - mayo
+    - junio
+    - julio
+    - agosto
+    - septiembre
+    - octubre
+    - noviembre
+    - diciembre
+    order:
+    - :day
+    - :month
+    - :year
+  datetime:
+    distance_in_words:
+      about_x_hours:
+        one: alrededor de %{count} hora
+        other: alrededor de %{count} horas
+      about_x_months:
+        one: alrededor de %{count} mes
+        other: alrededor de %{count} meses
+      about_x_years:
+        one: alrededor de %{count} año
+        other: alrededor de %{count} años
+      almost_x_years:
+        one: casi %{count} año
+        other: casi %{count} años
+      half_a_minute: medio minuto
+      less_than_x_seconds:
+        one: menos de %{count} segundo
+        other: menos de %{count} segundos
+      less_than_x_minutes:
+        one: menos de %{count} minuto
+        other: menos de %{count} minutos
+      over_x_years:
+        one: más de %{count} año
+        other: más de %{count} años
+      x_seconds:
+        one: "%{count} segundo"
+        other: "%{count} segundos"
+      x_minutes:
+        one: "%{count} minuto"
+        other: "%{count} minutos"
+      x_days:
+        one: "%{count} día"
+        other: "%{count} días"
+      x_months:
+        one: "%{count} mes"
+        other: "%{count} meses"
+      x_years:
+        one: "%{count} año"
+        other: "%{count} años"
+    prompts:
+      second: Segundo
+      minute: Minuto
+      hour: Hora
+      day: Día
+      month: Mes
+      year: Año
+  errors:
+    format: "%{attribute} %{message}"
+    messages:
+      accepted: debe ser aceptado
+      blank: no puede estar en blanco
+      confirmation: no coincide
+      empty: no puede estar vacío
+      equal_to: debe ser igual a %{count}
+      even: debe ser par
+      exclusion: está reservado
+      greater_than: debe ser mayor que %{count}
+      greater_than_or_equal_to: debe ser mayor que o igual a %{count}
+      in: debe estar en %{count}
+      inclusion: no está incluido en la lista
+      invalid: no es válido
+      less_than: debe ser menor que %{count}
+      less_than_or_equal_to: debe ser menor que o igual a %{count}
+      model_invalid: 'La validación falló: %{errors}'
+      not_a_number: no es un número
+      not_an_integer: debe ser un entero
+      odd: debe ser impar
+      other_than: debe ser distinto de %{count}
+      present: debe estar en blanco
+      required: debe existir
+      taken: ya está en uso
+      too_long:
+        one: es demasiado largo (%{count} carácter máximo)
+        other: es demasiado largo (%{count} caracteres máximo)
+      too_short:
+        one: es demasiado corto (%{count} carácter mínimo)
+        other: es demasiado corto (%{count} caracteres mínimo)
+      wrong_length:
+        one: no tiene la longitud correcta (%{count} carácter exactos)
+        other: no tiene la longitud correcta (%{count} caracteres exactos)
+    template:
+      body: 'Se encontraron problemas con los siguientes campos:'
+      header:
+        one: No se pudo guardar este/a %{model} porque se encontró %{count} error
+        other: No se pudo guardar este/a %{model} porque se encontraron %{count} errores
+  helpers:
+    select:
+      prompt: Por favor seleccione
+    submit:
+      create: Crear %{model}
+      submit: Guardar %{model}
+      update: Actualizar %{model}
+  number:
+    currency:
+      format:
+        delimiter: "."
+        format: "%n %u"
+        precision: 2
+        separator: ","
+        significant: false
+        strip_insignificant_zeros: false
+        unit: "€"
+    format:
+      delimiter: "."
+      precision: 3
+      round_mode: default
+      separator: ","
+      significant: false
+      strip_insignificant_zeros: false
+    human:
+      decimal_units:
+        format: "%n %u"
+        units:
+          billion: mil millones
+          million:
+            one: millón
+            other: millones
+          quadrillion: mil billones
+          thousand: mil
+          trillion:
+            one: billón
+            other: billones
+          unit: ''
+      format:
+        delimiter: ''
+        precision: 3
+        significant: true
+        strip_insignificant_zeros: true
+      storage_units:
+        format: "%n %u"
+        units:
+          byte:
+            one: Byte
+            other: Bytes
+          eb: EB
+          gb: GB
+          kb: KB
+          mb: MB
+          pb: PB
+          tb: TB
+    percentage:
+      format:
+        delimiter: ''
+        format: "%n %"
+    precision:
+      format:
+        delimiter: ''
+  support:
+    array:
+      last_word_connector: " y "
+      two_words_connector: " y "
+      words_connector: ", "
+  time:
+    am: am
+    formats:
+      default: "%A, %-d de %B de %Y %H:%M:%S %z"
+      long: "%-d de %B de %Y %H:%M"
+      short: "%-d de %b %H:%M"
+    pm: pm
+  pages:
+    header:
+      get_started: "Comenzar"
+      sign_in: "Iniciar Sesión"
+    home:
+      title_1: "Revoluciona Tu"
+      title_2: "Gestión de Documentos"
+      get_started: "Comenzar"
+      description: |
+        Organice, busque y comprenda sus documentos sin esfuerzo con información basada en inteligencia artificial.
+        Cargue sus archivos y nuestro motor inteligente extraerá información clave, generará resúmenes concisos y hará que cada palabra se pueda buscar instantáneamente.
+        Ya sean contratos, trabajos de investigación o informes, ClariDocs le ahorra horas de tediosas lecturas y búsquedas
+        para que pueda concentrarse en tomar decisiones, no en examinar páginas.
+      sub_title_1: "Todo lo que necesitas para gestionar documentos"
+      sub_description_1: "Desde una organización sencilla hasta conocimientos basados en IA, ClariDocs lo maneja todo"
+      section_card_title_1: "Guardar y organizar"
+      section_card_descr_1: "Guarde y clasifique sus documentos sin esfuerzo con etiquetas inteligentes y estructuras de carpetas que se adaptan a su flujo de trabajo."
+      section_card_title_2: "Resúmenes de IA"
+      section_card_descr_2: "Obtenga resúmenes instantáneos generados por IA, información clave y extracción de metadatos de cualquier documento para ahorrar tiempo y mejorar la comprensión."
+      section_card_title_3: "Búsqueda potente"
+      section_card_descr_3: "Busque por contenido, criterios o consultas en lenguaje natural. Obtenga resultados instantáneos con respuestas resumidas de su biblioteca de documentos."
+      bottom_section_title: "¿Listo para transformar su flujo de trabajo?"
+      bottom_section_descr: "Únase a miles de personas que ya utilizan ClariDocs para optimizar la gestión de documentos."
+    footer:
+      summary: |
+        ClariDocs utiliza IA para extraer información, resumir contenido y hacer que cada documento se pueda buscar instantáneamente.
+        Ahorre horas de lectura y concéntrese en las decisiones, sin tener que hojear las páginas.
+      product_1: "Producto"
+      product_2: "Precios"
+      product_3: "Registro De Cambios"
+      product_4: "Hoja De Ruta"
+      resources_1: "Recursos"
+      resources_2: "Documentación"
+      resources_3: "Referencia API"
+      resources_4: "Guías"
+      resources_5: "Apoyo"
+      company_1: "Compañía"
+      company_2: "Acerca De"
+      company_3: "Blog"
+      company_4: "Privacidad"
+      company_5: "Términos"
+      reserved: "© 2025 ClariDocs. Todos los derechos reservados."
+  registrations:
+    new:
+      title: "Crea Tu Cuenta"
+      sign_in: "Iniciar sesión"
+      subtitle: "Empiece a gestionar sus documentos hoy mismo con información basada en IA."
+      create_account: "Crear Una Cuenta"
+      existing_account: "¿Ya tienes una cuenta?"
+  sessions:
+    new:
+      welcome_back: "Bienvenido de nuevo"
+      description: "Inicia sesión en tu cuenta para continuar"
+      forgot_password: "¿Olvidaste tu contraseña?"
+      sign_in: "Iniciar sesión"
+      sign_up: "Registrarse"
+      no_existing_account: "¿No tienes cuenta?"

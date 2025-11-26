@@ -1,19 +1,15 @@
-<%= render 'pages_header' %>
+<%= render 'header' %>
 
 <%= content_tag :section, class: 'relative py-20 lg:py-32 bg-gray-200' do %>
   <%= content_tag :div, class: 'container mx-auto px-4 sm:px-6 lg:px-8' do %>
     <%= content_tag :div, class: 'max-w-4xl mx-auto text-center' do %>
       <%= content_tag :h1, class: 'text-4xl sm:text-5xl lg:text-6xl font-bold text-balance mb-6' do %>
-        Revolutionize Your <%= content_tag :span, 'Document Management', class: 'text-primary' %>
+        <%= t('.title_1') %> <%= content_tag :span, t('.title_2'), class: 'text-primary' %>
       <% end %>
 
-      <%= content_tag :p, 'Organize, search, and understand your documents effortlessly with AI-powered insights.
-        Upload your files, and our intelligent engine extracts key information, generates concise summaries, and makes every word instantly searchable.
-        Whether it’s contracts, research papers, or reports, ClariDocs saves you hours of tedious reading and searching—
-        so you can focus on making decisions, not sifting through pages.',
-        class: 'text-xl text-muted-foreground text-pretty mb-8 max-w-2xl mx-auto leading-relaxed' %>
+      <%= content_tag :p, t('.description'), class: 'text-xl text-muted-foreground text-pretty mb-8 max-w-2xl mx-auto leading-relaxed' %>
 
-      <%= link_to 'Get Started', new_registration_path, class: 'btn-primary btn-lg' %>
+      <%= link_to t('.get_started'), new_registration_path, class: 'btn-primary btn-lg' %>
     <% end %>
   <% end %>
 <% end %>
@@ -21,23 +17,23 @@
 <%= content_tag :section, class: 'py-20 lg:py-32' do %>
   <%= content_tag :div, class: 'container mx-auto px-4 sm:px-6 lg:px-8' do %>
     <%= content_tag :div, class: 'text-center mb-16' do %>
-      <%= content_tag :h2, 'Everything you need to manage documents', class: 'text-3xl lg:text-4xl font-bold mb-4 text-balance' %>
-      <%= content_tag :p, 'From simple organization to AI-powered insights, ClariDocs handles it all', class: 'text-xl text-muted-foreground max-w-2xl mx-auto text-pretty' %>
+      <%= content_tag :h2, t('.sub_title_1'), class: 'text-3xl lg:text-4xl font-bold mb-4 text-balance' %>
+      <%= content_tag :p, t('.sub_description_1'), class: 'text-xl text-muted-foreground max-w-2xl mx-auto text-pretty' %>
     <% end %>
 
     <%= content_tag :div, class: 'grid md:grid-cols-3 gap-8' do %>
       <%= render 'section',
         icon: 'rectangle-stack',
-        title: 'Save & Organize',
-        description: 'Effortlessly save and categorize your documents with intelligent tagging and folder structures that adapt to your workflow.' %>
+        title: t('.section_card_title_1'),
+        description: t('.section_card_descr_1') %>
       <%= render 'section',
         icon: 'light-bulb',
-        title: 'AI Summaries',
-        description: 'Get instant AI-generated summaries, key insights, and metadata extraction from any document to save time and improve understanding.' %>
+        title: t('.section_card_title_2'),
+        description: t('.section_card_descr_2') %>
       <%= render 'section',
         icon: 'magnifying-glass',
-        title: 'Powerful Search',
-        description: 'Search by content, criteria, or natural language queries. Get instant results with summarized answers from your document library.' %>
+        title: t('.section_card_title_3'),
+        description: t('.section_card_descr_3') %>
     <% end %>
   <% end %>
 <% end %>
@@ -45,12 +41,11 @@
 <%= content_tag :div, class: 'py-20 lg:py-32' do %>
   <%= content_tag :div, class: 'container mx-auto px-4 sm:px-6 lg:px-8' do %>
     <%= content_tag :div, class: 'max-w-4xl mx-auto text-center' do %>
-      <%= content_tag :h2, 'Ready to transform your workflow?', class: 'text-3xl lg:text-4xl font-bold mb-6 text-balance' %>
-      <%= content_tag :p, 'Join thousands of people who are already using ClariDocs to streamline their document management.',
-        class: 'text-xl text-muted-foreground mb-8 max-w-2xl mx-auto text-pretty' %>
-      <%= link_to 'Get Started', new_registration_path, class: 'btn-primary btn-lg' %>
+      <%= content_tag :h2, t('.bottom_section_title'), class: 'text-3xl lg:text-4xl font-bold mb-6 text-balance' %>
+      <%= content_tag :p, t('.bottom_section_descr'), class: 'text-xl text-muted-foreground mb-8 max-w-2xl mx-auto text-pretty' %>
+      <%= link_to t('.get_started'), new_registration_path, class: 'btn-primary btn-lg' %>
     <% end %>
   <% end %>
 <% end %>
 
-<%= render 'pages_footer' %>
+<%= render 'footer' %>

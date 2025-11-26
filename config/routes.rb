@@ -18,33 +18,35 @@ Rails.application.routes.draw do
   # get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
   # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
 
-  # Defines the landing page route
-  root 'pages#home'
+  scope '(:locale)', locale: /en|es/ do
+    # Defines the landing page route
+    root 'pages#home'
 
-  # Sessions
-  resource :registration, only: %i[new create]
-  resource :session, only: %i[new create destroy]
-  resources :passwords, param: :token, except: %i[index show destroy]
+    # Sessions
+    resource :registration, only: %i[new create]
+    resource :session, only: %i[new create destroy]
+    resources :passwords, param: :token, except: %i[index show destroy]
 
-  resource :dashboard, only: :show
+    resource :dashboard, only: :show
 
-  resources :collections do
-    resources :documents, except: :index
-  end
-
-  get 'search', to: 'search#index', as: :search
-
-  resources :user_integrations, only: :index do
-    member do
-      get :ai_connect
-      patch :update_ai
-
-      # get :cloud_connect
-      delete :disconnect
+    resources :collections do
+      resources :documents, except: :index
     end
 
-    # collection do
-    #   get :oauth_callback  # For cloud provider OAuth callback
-    # end
+    get 'search', to: 'search#index', as: :search
+
+    resources :user_integrations, only: :index do
+      member do
+        get :ai_connect
+        patch :update_ai
+
+        # get :cloud_connect
+        delete :disconnect
+      end
+
+      # collection do
+      #   get :oauth_callback  # For cloud provider OAuth callback
+      # end
+    end
   end
 end

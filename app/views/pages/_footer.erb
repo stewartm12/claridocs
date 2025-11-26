@@ -8,59 +8,57 @@
           <%= content_tag :span, 'ClariDocs', class: 'font-bold' %>
         <% end %>
 
-        <%= content_tag :p, 'ClariDocs uses AI to extract insights, summarize content, and make every document instantly searchable.
-          Save hours of reading and focus on decisions, not digging through pages.',
-          class: 'text-muted-foreground text-sm leading-relaxed' %>
+        <%= content_tag :p, t('.summary'), class: 'text-muted-foreground text-sm leading-relaxed' %>
       <% end %>
 
       <%= content_tag :div do %>
-        <%= content_tag :h4, 'Product', class: 'font-semibold mb-4' %>
+        <%= content_tag :h4, t('.product_1'), class: 'font-semibold mb-4' %>
         <%= content_tag :ul, class: 'space-y-2 text-sm' do %>
           <%= content_tag :li do %>
-            <%= link_to 'Pricing', '#', class: 'text-muted-foreground hover:text-primary transition-colors' %>
+            <%= link_to t('.product_2'), '#', class: 'text-muted-foreground hover:text-primary transition-colors' %>
           <% end %>
           <%= content_tag :li do %>
-            <%= link_to 'Changelog', '#', class: 'text-muted-foreground hover:text-primary transition-colors' %>
+            <%= link_to t('.product_3'), '#', class: 'text-muted-foreground hover:text-primary transition-colors' %>
           <% end %>
           <%= content_tag :li do %>
-            <%= link_to 'Roadmap', '#', class: 'text-muted-foreground hover:text-primary transition-colors' %>
+            <%= link_to t('.product_4'), '#', class: 'text-muted-foreground hover:text-primary transition-colors' %>
           <% end %>
         <% end %>
       <% end %>
 
       <%= content_tag :div do %>
-        <%= content_tag :h4, 'Resources', class: 'font-semibold mb-4' %>
+        <%= content_tag :h4, t('.resources_1'), class: 'font-semibold mb-4' %>
         <%= content_tag :ul, class: 'space-y-2 text-sm' do %>
           <%= content_tag :li do %>
-            <%= link_to 'Documentation', '#', class: 'text-muted-foreground hover:text-primary transition-colors' %>
+            <%= link_to t('.resources_2'), '#', class: 'text-muted-foreground hover:text-primary transition-colors' %>
           <% end %>
           <%= content_tag :li do %>
-            <%= link_to 'API Reference', '#', class: 'text-muted-foreground hover:text-primary transition-colors' %>
+            <%= link_to t('.resources_3'), '#', class: 'text-muted-foreground hover:text-primary transition-colors' %>
           <% end %>
           <%= content_tag :li do %>
-            <%= link_to 'Guides', '#', class: 'text-muted-foreground hover:text-primary transition-colors' %>
+            <%= link_to t('.resources_4'), '#', class: 'text-muted-foreground hover:text-primary transition-colors' %>
           <% end %>
           <%= content_tag :li do %>
-            <%= link_to 'Support', '#', class: 'text-muted-foreground hover:text-primary transition-colors' %>
+            <%= link_to t('.resources_5'), '#', class: 'text-muted-foreground hover:text-primary transition-colors' %>
           <% end %>
         <% end %>
       <% end %>
 
       <%= content_tag :div do %>
         <%= content_tag :div do %>
-          <%= content_tag :h4, 'Company', class: 'font-semibold mb-4' %>
+          <%= content_tag :h4, t('.company_1'), class: 'font-semibold mb-4' %>
           <%= content_tag :ul, class: 'space-y-2 text-sm' do %>
             <%= content_tag :li do %>
-              <%= link_to 'About', '#', class: 'text-muted-foreground hover:text-primary transition-colors' %>
+              <%= link_to t('.company_2'), '#', class: 'text-muted-foreground hover:text-primary transition-colors' %>
             <% end %>
             <%= content_tag :li do %>
-              <%= link_to 'Blog', '#', class: 'text-muted-foreground hover:text-primary transition-colors' %>
+              <%= link_to t('.company_3'), '#', class: 'text-muted-foreground hover:text-primary transition-colors' %>
             <% end %>
             <%= content_tag :li do %>
-              <%= link_to 'Privacy', '#', class: 'text-muted-foreground hover:text-primary transition-colors' %>
+              <%= link_to t('.company_4'), '#', class: 'text-muted-foreground hover:text-primary transition-colors' %>
             <% end %>
             <%= content_tag :li do %>
-              <%= link_to 'Terms', '#', class: 'text-muted-foreground hover:text-primary transition-colors' %>
+              <%= link_to t('.company_5'), '#', class: 'text-muted-foreground hover:text-primary transition-colors' %>
             <% end %>
           <% end %>
         <% end %>
@@ -68,7 +66,7 @@
     <% end %>
 
     <%= content_tag :div, class: 'border-t border-border mt-8 pt-8 flex flex-col sm:flex-row justify-between items-center' do %>
-      <%= content_tag :p, '© 2025 ClariDocs. All rights reserved.', class: 'text-sm text-muted-foreground' %>
+      <%= content_tag :p, t('.reserved'), class: 'text-sm text-muted-foreground' %>
       <%= content_tag :div, class: 'flex space-x-4 mt-4 sm:mt-0' do %>
         <%= link_to 'Social Media', '#', class: 'text-muted-foreground hover:text-primary transition-colors' %>
         <%= link_to 'Social Media', '#', class: 'text-muted-foreground hover:text-primary transition-colors' %>
