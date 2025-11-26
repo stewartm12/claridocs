@@ -28,4 +28,57 @@
 #       enabled: "ON"
 
 en:
-  hello: "Hello world"
+  pages:
+    header:
+      get_started: "Get Started"
+      sign_in: "Sign In"
+    home:
+      title_1: "Revolutionize Your"
+      title_2: "Document Management"
+      description: "Organize, search, and understand your documents effortlessly with AI-powered insights.
+            Upload your files, and our intelligent engine extracts key information, generates concise summaries, and makes every word instantly searchable.
+            Whether it's contracts, research papers, or reports, ClariDocs saves you hours of tedious reading and searching—
+            so you can focus on making decisions, not sifting through pages."
+      create_account: "Create Account"
+      sub_title_1: "Everything you need to manage documents"
+      sub_description_1: "From simple organization to AI-powered insights, ClariDocs handles it all"
+      section_card_title_1: "Save & Organize"
+      section_card_descr_1: "Effortlessly save and categorize your documents with intelligent tagging and folder structures that adapt to your workflow."
+      section_card_title_2: "AI Summaries"
+      section_card_descr_2: "Get instant AI-generated summaries, key insights, and metadata extraction from any document to save time and improve understanding."
+      section_card_title_3: "Powerful Search"
+      section_card_descr_3: "Search by content, criteria, or natural language queries. Get instant results with summarized answers from your document library."
+      bottom_section_title: "Ready to transform your workflow?"
+      bottom_section_descr: "Join thousands of people who are already using ClariDocs to streamline their document management."
+    footer:
+      summary: "ClariDocs uses AI to extract insights, summarize content, and make every document instantly searchable.
+              Save hours of reading and focus on decisions, not digging through pages."
+      product_1: "Product"
+      product_2: "Pricing"
+      product_3: "Changelog"
+      product_4: "Roadmap"
+      resources_1: "Resources"
+      resources_2: "Documentation"
+      resources_3: "API Reference"
+      resources_4: "Guides"
+      resources_5: "Support"
+      company_1: "Company"
+      company_2: "About"
+      company_3: "Blog"
+      company_4: "Privacy"
+      company_5: "Terms"
+      reserved: "© 2025 ClariDocs. All rights reserved."
+  registrations:
+    new:
+      title: "Create Your Account"
+      subtitle: "Start managing your documents with AI-powered insights today."
+      existing_account: "Already have an account?"
+      create_account: "Create Account"
+  sessions:
+    new:
+      welcome_back: "Welcome Back"
+      description: "Sign in to your account to continue"
+      forgot_password: "Forgot your password?"
+      sign_in: "Sign In"
+      sign_up: "Sign Up"
+      no_existing_account: "Don't have an account?"

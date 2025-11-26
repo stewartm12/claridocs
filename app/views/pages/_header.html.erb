@@ -12,8 +12,8 @@
       <% end %>
 
       <%= content_tag :div, class: 'flex items-center space-x-4' do %>
-        <%= link_to 'Sign In', new_session_path, class: 'hidden md:inline-flex text-muted-foreground hover:text-primary transition-colors' %>
-        <%= link_to 'Get Started', new_registration_path, class: 'btn-primary' %>
+        <%= link_to t('.sign_in'), new_session_path, class: 'hidden md:inline-flex text-muted-foreground hover:text-primary transition-colors' %>
+        <%= link_to t('.get_started'), new_registration_path, class: 'btn-primary' %>
       <% end %>
     <% end %>
   <% end %>

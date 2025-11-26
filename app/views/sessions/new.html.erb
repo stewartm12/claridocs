@@ -6,8 +6,8 @@
           class: "size-8 mr-3" %>
         <%= content_tag :span, 'Claridocs', class: 'text-2xl font-bold text-black' %>
       <% end %>
-      <%= content_tag :h3, 'Welcome Back', class: 'text-3xl font-bold mb-2' %>
-      <%= content_tag :p, 'Sign in to your account to continue', class: 'text-muted-foreground' %>
+      <%= content_tag :h3, t('.welcome_back'), class: 'text-3xl font-bold mb-2' %>
+      <%= content_tag :p, t('.description'), class: 'text-muted-foreground' %>
     <% end %>
 
     <%= content_tag :div, class: 'bg-card rounded-xl border border-border p-8 shadow-sm' do %>
@@ -37,17 +37,17 @@
           <% end %>
 
           <%= content_tag :div, class: 'text-sm' do %>
-            <%= link_to 'Forgot your password?', new_password_path %>
+            <%= link_to t('.forgot_password'), new_password_path %>
           <% end %>
         <% end %>
 
-        <%= f.submit 'Sign In', class: 'w-full btn-primary' %>
+        <%= f.submit t('.sign_in'), class: 'w-full btn-primary' %>
       <% end %>
     <% end %>
 
     <%= content_tag :div, class: 'text-center' do %>
       <%= content_tag :p, class: 'text-muted-foreground' do %>
-        Don't have an account? <%= link_to 'Sign Up', new_registration_path %>
+        <%= t('.no_existing_account') %><%= link_to t('.sign_up'), new_registration_path %>
       <% end %>
     <% end %>
   <% end %>
